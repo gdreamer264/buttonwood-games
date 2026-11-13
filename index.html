@@ -11,6 +11,7 @@
 [hidden]{display:none!important}.gamePicker{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:16px 0 0}.gamePicker button[aria-pressed=true]{background:var(--green);color:#fff9e9;border-color:var(--green)}.matchPanel{max-width:590px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;padding:clamp(12px,4vw,26px)}.matchBar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}.matchGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(5px,1.7vw,12px)}.matchCard{display:grid;place-items:center;align-content:center;gap:2px;min-height:clamp(66px,14vw,103px);border:2px solid #a8b794;border-radius:13px;background:#dce6d0;padding:3px;font-size:clamp(10px,2.8vw,14px);line-height:1.05}.matchCard span:first-child{font-size:clamp(21px,6vw,37px);line-height:1.1}.matchCard[data-state=open]{background:#fff4d7;border-color:#bf9660}.matchCard[data-state=matched]{background:#f2ead7;border-color:#718b68;cursor:default}.matchStatus{margin:12px 0 0;min-height:24px;text-align:center}.matchBar button{flex:0 0 auto}
 .matchBar{flex-wrap:wrap}.difficultyButtons{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.difficultyButtons button[aria-pressed=true]{background:var(--green);color:#fff9e9;border-color:var(--green)}.matchCard canvas{display:block;width:min(100%,70px);height:auto}.matchCard[data-state=closed] canvas,.matchCard[data-state]:not([data-state=closed]) .cardBack{display:none}
 .book{max-width:660px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;overflow:hidden}.book canvas{display:block;width:100%;height:auto;background:#e5ead7}.bookPage{padding:clamp(12px,4vw,24px)}.bookText{display:block;width:100%;background:#f4ebd6;border:0;border-radius:15px;padding:15px;font:700 clamp(23px,5vw,36px)/1.45 Georgia,serif}.bookText .readingWord{background:#f9d779;border-radius:4px;box-decoration-break:clone}.bookControls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-top:12px}.bookControls button:disabled{opacity:.5;cursor:default}.bookControls .primary{flex:none}.bookStatus{margin:7px 0 0;min-height:22px;font-size:14px}
+.mathTrail{max-width:660px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;overflow:hidden}.mathTrail canvas{display:block;width:100%;height:auto;background:#e5ead7}.mathBody{padding:clamp(14px,4vw,24px);text-align:center}.mathCount{color:var(--muted);font-size:14px;margin:0}.mathQuestion{font:700 clamp(21px,4vw,29px)/1.3 Georgia,serif;margin:9px 0}.mathEquation{font-size:25px;margin:6px}.mathAnswers{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:12px 0}.mathAnswers button{min-width:64px;min-height:48px;font-size:22px}.mathAnswers button[aria-disabled=true]{cursor:default}.mathAnswers button.correct{background:#dce6d0;border-color:var(--green)}.mathStatus{min-height:24px;margin:8px 0}.mathBody .primary{padding-inline:22px}
 </style>
 </head>
 <body>
@@ -20,6 +21,7 @@
 <button class="quiet" data-game="dress" aria-controls="dressGame" aria-pressed="true">Dress-Up</button>
 <button class="quiet" data-game="match" aria-controls="matchGame" aria-pressed="false">Woodland Match</button>
 <button class="quiet" data-game="book" aria-controls="bookGame" aria-pressed="false">Picnic Read-Along</button>
+<button class="quiet" data-game="math" aria-controls="mathGame" aria-pressed="false">Acorn Trail Math</button>
 </nav>
 <section id="dressGame" aria-labelledby="dressTitle">
 <div class="intro"><h1 id="dressTitle">Buttonwood Dress-Up</h1><p>Dress a woodland friend and see where their outfit takes them.</p></div>
@@ -65,6 +67,21 @@
 <button class="quiet" type="button" id="bookNext">Next →</button>
 </div>
 <p class="bookStatus" id="bookStatus" role="status"></p>
+</div>
+</div>
+</section>
+<section id="mathGame" aria-labelledby="mathTitle" hidden>
+<div class="intro"><h1 id="mathTitle">Acorn Trail Math</h1><p>Solve five problems to help a friend reach the picnic.</p></div>
+<div class="mathTrail">
+<div class="gamePicker" id="mathFriends" role="group" aria-label="Choose your trail friend"></div>
+<canvas id="mathArt" width="660" height="275" role="img"></canvas>
+<div class="mathBody">
+<p class="mathCount" id="mathCount"></p>
+<h2 class="mathQuestion" id="mathQuestion" tabindex="-1"></h2>
+<p class="mathEquation" id="mathEquation"></p>
+<div class="mathAnswers" id="mathAnswers" role="group" aria-label="Choose an answer"></div>
+<p class="mathStatus" id="mathStatus" role="status"></p>
+<button class="primary" id="mathNext" type="button" hidden>Next problem →</button>
 </div>
 </div>
 </section>
@@ -792,6 +809,155 @@ $('bookRead').addEventListener('click',readBook);
 $('bookBack').addEventListener('click',()=>{if(bookPage>0){bookPage--;showBookPage();}});
 $('bookNext').addEventListener('click',()=>{bookPage=(bookPage+1)%bookPages.length;showBookPage();});
 showBookPage();
+
+const trailLength=5;
+const trailFriends=Object.keys(friends);
+const trailFinds=['acorn','berry','mushroom'];
+const trailArt=$('mathArt');
+let trailFriend=trailFriends[0], trailStep=0, trailProblems=[], trailSolved=false;
+
+function trailRandom(limit){return Math.floor(Math.random()*limit);}
+function trailShuffle(items){
+  for(let i=items.length-1;i>0;i--){
+    const j=trailRandom(i+1);
+    [items[i],items[j]]=[items[j],items[i]];
+  }
+  return items;
+}
+function makeTrail(){
+  const problems=[];
+  const startsWithTaking=trailRandom(2)===1;
+  const firstFind=trailRandom(trailFinds.length);
+  for(let i=0;i<trailLength;i++){
+    const take=(i%2===0)===startsWithTaking;
+    const total=2+trailRandom(9);
+    const part=1+trailRandom(take?total:total-1);
+    const left=take?total:total-part;
+    const answer=take?left-part:left+part;
+    const find=trailFinds[(firstFind+i)%trailFinds.length];
+    const choices=[answer,...[1,-1,2,-2].map(offset=>answer+offset).filter(value=>value>=0&&value<=10).slice(0,2)];
+    problems.push({take,left,part,answer,find,choices:trailShuffle(choices)});
+  }
+  return problems;
+}
+function drawTrailFind(c,find,x,y){
+  if(find==='acorn'){
+    oval(c,x,y+2,9,12,'#c99662',outline);
+    path(c,[[x-11,y-3],[x-10,y-15,x+10,y-15,x+11,y-3]],'#8d644a');
+    line(c,[[x,y-11],[x+2,y-16]],outline);
+  }else if(find==='berry'){
+    oval(c,x,y+2,9,9,'#ad5370',outline);
+    oval(c,x+3,y-8,6,3,'#739663',null,-.5);
+  }else{
+    oval(c,x,y+5,4,9,'#f5dfb5',outline);
+    path(c,[[x-12,y],[x-10,y-16,x+10,y-16,x+12,y],[x+4,y+4,x-4,y+4,x-12,y]],'#b76763');
+    oval(c,x+3,y-5,2,2,'#fff1d9');
+  }
+}
+function drawTrail(problem){
+  const c=trailArt.getContext('2d');
+  const progress=trailStep+(trailSolved?1:0);
+  const x=70+progress*91;
+  c.fillStyle='#e5ead7';c.fillRect(0,0,660,275);
+  oval(c,572,48,26,26,'#f7d88d');
+  path(c,[[0,151],[124,112,202,152,314,151],[431,150,527,108,660,138],[660,275],[0,275]],'#b6cba0',null);
+  line(c,[[58,172],[215,154,438,184,542,164]],'#e9d2a5',31);
+  for(let i=0;i<=trailLength;i++)oval(c,70+i*91,173,7,5,i<=progress?'#8b5b42':'#f9ead0');
+  c.save();c.translate(x,162);c.scale(.36,.36);c.translate(-280,-441);drawFriend(c,friends[trailFriend]);c.restore();
+  c.save();c.translate(598,151);c.scale(.68,.68);garment(c,categories.Extras[3]);c.restore();
+  if(!problem){
+    for(const [sx,sy] of [[230,222],[330,232],[430,222]])star(c,sx,sy,12,'#e9b957');
+    trailArt.setAttribute('aria-label',trailFriend+' reached the picnic basket.');
+    return;
+  }
+  const count=problem.take?problem.left:problem.left+problem.part;
+  for(let i=0;i<count;i++){
+    const itemX=330+(i-(count-1)/2)*35;
+    const mark=problem.take?i>=problem.left-problem.part:i>=problem.left;
+    if(mark)oval(c,itemX,228,15,19,'#fff1c9');
+    drawTrailFind(c,problem.find,itemX,228);
+    if(problem.take&&mark)line(c,[[itemX-12,239],[itemX+12,216]],'#844050',3);
+  }
+  const explanation=problem.take
+    ?count+' pictures, with '+problem.part+' crossed out.'
+    :problem.left+' pictures, plus '+problem.part+' on yellow circles.';
+  trailArt.setAttribute('aria-label',explanation+' '+trailFriend+' is '+progress+' steps along the trail.');
+}
+function showTrailProblem(){
+  trailSolved=false;
+  const problem=trailProblems[trailStep];
+  const {left,part,find,take}=problem;
+  const noun=count=>count===1?find:find==='berry'?'berries':find+'s';
+  $('mathCount').textContent='Problem '+(trailStep+1)+' of '+trailLength;
+  $('mathQuestion').textContent=trailFriend+' has '+left+' '+noun(left)+'. '+(take
+    ?trailFriend+' gives away '+part+'. How many are left?'
+    :trailFriend+' finds '+part+' more. How many now?');
+  $('mathEquation').textContent=left+(take?' − ':' + ')+part+' = ?';
+  $('mathStatus').textContent='';
+  $('mathNext').hidden=true;
+  const answers=$('mathAnswers');
+  answers.replaceChildren();
+  answers.hidden=false;
+  for(const choice of problem.choices){
+    const button=document.createElement('button');
+    button.type='button';button.className='quiet';button.textContent=choice;
+    button.addEventListener('click',()=>{
+      if(trailSolved)return;
+      if(choice!==problem.answer){
+        $('mathStatus').textContent=take?'Try again. Count the pictures with no line through them.':'Try again. Count both groups of pictures.';
+        return;
+      }
+      trailSolved=true;
+      for(const option of answers.children)option.setAttribute('aria-disabled','true');
+      button.classList.add('correct');
+      $('mathEquation').textContent=left+(take?' − ':' + ')+part+' = '+choice;
+      $('mathStatus').textContent='That’s right! '+trailFriend+' takes a step.';
+      $('mathNext').textContent=trailStep+1===trailLength?'Reach the picnic →':'Next problem →';
+      $('mathNext').hidden=false;
+      drawTrail(problem);
+    });
+    answers.append(button);
+  }
+  drawTrail(problem);
+}
+function startTrail(){
+  trailStep=0;
+  trailProblems=makeTrail();
+  showTrailProblem();
+}
+const trailFriendButtons=$('mathFriends');
+for(const name of trailFriends){
+  const button=document.createElement('button');
+  button.type='button';button.className='quiet';button.textContent=name;
+  button.setAttribute('aria-label',name+' the '+friends[name].species);
+  button.setAttribute('aria-pressed',String(name===trailFriend));
+  button.addEventListener('click',()=>{
+    if(name===trailFriend)return;
+    trailFriend=name;
+    for(const option of trailFriendButtons.children)option.setAttribute('aria-pressed',String(option===button));
+    startTrail();
+  });
+  trailFriendButtons.append(button);
+}
+$('mathNext').addEventListener('click',()=>{
+  if(trailStep===trailLength){
+    startTrail();
+  }else if(trailSolved){
+    trailStep++;
+    if(trailStep<trailLength)showTrailProblem();
+    else{
+      $('mathCount').textContent=trailLength+' of '+trailLength+' problems solved';
+      $('mathQuestion').textContent=trailFriend+' made it to the picnic!';
+      $('mathEquation').textContent='';
+      $('mathAnswers').hidden=true;
+      $('mathStatus').textContent='';
+      $('mathNext').textContent='Play again';
+      drawTrail(null);
+    }
+  }
+  $('mathQuestion').focus();
+});
+startTrail();
 </script>
 </body>
 </html>
