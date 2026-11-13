@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#faf4e8">
+<title>Buttonwood Games</title>
+<style>
+:root{--ink:#2c4234;--paper:#faf4e8;--line:#e5d9c5;--green:#355a46;--muted:#586659}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:600 16px/1.45 "Nunito",system-ui,sans-serif}button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid #ae5229;outline-offset:3px}button:hover{filter:brightness(.97)}.wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}header{border-bottom:1px solid var(--line)}.bar{min-height:68px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font:700 24px Georgia,serif;display:flex;align-items:center;gap:10px}.mark{display:grid;place-items:center;background:#e6ead6;border-radius:50%;width:36px;height:36px;color:var(--green)}.quiet{background:#fffaf0;border:1px solid var(--line);border-radius:100px;padding:9px 15px}.intro{text-align:center;margin:32px 0 25px}.intro h1{font:700 clamp(38px,7vw,68px)/.98 Georgia,serif;letter-spacing:-.055em;margin:0 0 13px}.intro p{margin:0;color:var(--muted)}.game{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;align-items:stretch}.stage,.wardrobe{border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 5px 0 #e9deca}.stage{background:#e6ead8;position:relative;isolation:isolate;min-height:510px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:15px}.stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}.switch{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;border:1px solid #b8c5ac;background:#fcf9eb;border-radius:100px;padding:4px}.switch button,.tabs button{border:0;background:transparent;border-radius:100px;padding:7px 14px}.switch button{padding-inline:clamp(7px,2vw,14px)}.switch button[aria-pressed=true],.tabs button[aria-selected=true]{background:#dce6d0}.stageName{background:#fff9e9;border:1px solid #c8caac;border-radius:100px;padding:6px 16px;font:700 17px Georgia,serif}.wardrobe{background:#fffbf2;padding:23px;display:flex;flex-direction:column}.wardrobe h2{font:700 32px Georgia,serif;letter-spacing:-.04em;margin:0 0 9px}.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}.tabs button{padding:7px 12px;background:#f4ecdd}.items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.item{min-width:0;background:var(--tile,#f2eddf);border:2px solid transparent;border-radius:13px;padding:3px 2px 6px;font-size:13px;line-height:1.25;min-height:88px}.item[aria-pressed=true]{border-color:var(--green);box-shadow:inset 0 0 0 2px #fffaf1}.item canvas{display:block;width:64px;height:50px;margin:0 auto 2px}.mission{background:#f4ebd6;border-radius:16px;margin-top:auto;padding:12px 13px;display:grid;grid-template-columns:35px 1fr;gap:10px;align-items:center}.mission strong{display:block;font:700 19px Georgia,serif;margin-bottom:3px}.mission p{font-size:13px;margin:0}.mission .mark{background:#fbe0a3}.actions{display:flex;gap:8px;margin-top:11px}.primary{background:var(--green);color:#fff9e9;border:1px solid var(--green);border-radius:100px;padding:9px 15px;flex:1}.feedback{min-height:22px;font-size:13px;margin:6px 0 0;color:#714326}.footer{display:flex;justify-content:center;gap:8px;margin:20px 0;color:var(--muted);font-size:13px}.stars{color:#846126}.win{animation:glow .55s alternate 4}@keyframes glow{to{box-shadow:0 0 24px 5px #e7b64f}}@media(max-width:760px){.wrap{width:min(520px,calc(100% - 24px))}.intro{margin:24px 0 19px}.game{grid-template-columns:1fr;gap:15px}.stage{min-height:400px}.stage canvas{object-fit:contain}.wardrobe{padding:17px}.mission{margin-top:13px}.bar{min-height:59px}.brand{font-size:19px}.quiet,.primary{font-size:14px}}@media(prefers-reduced-motion:reduce){.win{animation:none}}
+[hidden]{display:none!important}.gamePicker{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:16px 0 0}.gamePicker button[aria-pressed=true]{background:var(--green);color:#fff9e9;border-color:var(--green)}.matchPanel{max-width:590px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;padding:clamp(12px,4vw,26px)}.matchBar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}.matchGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(5px,1.7vw,12px)}.matchCard{display:grid;place-items:center;align-content:center;gap:2px;min-height:clamp(66px,14vw,103px);border:2px solid #a8b794;border-radius:13px;background:#dce6d0;padding:3px;font-size:clamp(10px,2.8vw,14px);line-height:1.05}.matchCard span:first-child{font-size:clamp(21px,6vw,37px);line-height:1.1}.matchCard[data-state=open]{background:#fff4d7;border-color:#bf9660}.matchCard[data-state=matched]{background:#f2ead7;border-color:#718b68;cursor:default}.matchStatus{margin:12px 0 0;min-height:24px;text-align:center}.matchBar button{flex:0 0 auto}
+.matchBar{flex-wrap:wrap}.difficultyButtons{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.difficultyButtons button[aria-pressed=true]{background:var(--green);color:#fff9e9;border-color:var(--green)}.matchCard canvas{display:block;width:min(100%,70px);height:auto}.matchCard[data-state=closed] canvas,.matchCard[data-state]:not([data-state=closed]) .cardBack{display:none}
+.book{max-width:660px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;overflow:hidden}.book canvas{display:block;width:100%;height:auto;background:#e5ead7}.bookPage{padding:clamp(12px,4vw,24px)}.bookText{display:block;width:100%;background:#f4ebd6;border:0;border-radius:15px;padding:15px;font:700 clamp(23px,5vw,36px)/1.45 Georgia,serif}.bookText .readingWord{background:#f9d779;border-radius:4px;box-decoration-break:clone}.bookControls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-top:12px}.bookControls button:disabled{opacity:.5;cursor:default}.bookControls .primary{flex:none}.bookStatus{margin:7px 0 0;min-height:22px;font-size:14px}
+</style>
+</head>
+<body>
+<header><div class="wrap bar"><div class="brand"><span class="mark" aria-hidden="true">✿</span> Buttonwood</div><button id="shuffle" class="quiet" type="button">⤨ Surprise outfit</button></div></header>
+<main class="wrap">
+<nav class="gamePicker" aria-label="Choose a game">
+<button class="quiet" data-game="dress" aria-controls="dressGame" aria-pressed="true">Dress-Up</button>
+<button class="quiet" data-game="match" aria-controls="matchGame" aria-pressed="false">Woodland Match</button>
+<button class="quiet" data-game="book" aria-controls="bookGame" aria-pressed="false">Picnic Read-Along</button>
+</nav>
+<section id="dressGame" aria-labelledby="dressTitle">
+<div class="intro"><h1 id="dressTitle">Buttonwood Dress-Up</h1><p>Dress a woodland friend and see where their outfit takes them.</p></div>
+<div class="game">
+<section class="stage" aria-label="Paper doll dressing room">
+<canvas id="scene" width="560" height="520" role="img" aria-label="Pip in the meadow"></canvas>
+<div class="switch" aria-label="Choose a woodland friend"><button data-friend="Pip" aria-pressed="true">Pip</button><button data-friend="Maple" aria-pressed="false">Maple</button><button data-friend="Clover" aria-pressed="false">Clover</button><button data-friend="Pebble" aria-pressed="false">Pebble</button><button data-friend="Fern" aria-pressed="false">Fern</button><button data-friend="Hazel" aria-pressed="false">Hazel</button></div>
+<div class="stageName" id="friendName">Pip the bunny</div>
+</section>
+<section class="wardrobe" aria-labelledby="wardrobeTitle"><h2 id="wardrobeTitle">The Wardrobe</h2>
+<div class="tabs" role="tablist" aria-label="Wardrobe categories"></div>
+<div class="items" id="items" role="tabpanel"></div>
+<div class="mission"><div class="mark" aria-hidden="true">✦</div><div><strong id="missionTitle"></strong><p id="missionHint"></p></div></div>
+<div class="actions"><button id="clear" class="quiet" type="button">Clear outfit</button><button id="go" class="primary" type="button">Off we go! →</button></div>
+<p class="feedback" id="feedback" role="status"></p>
+</section>
+</div>
+<div class="footer"><span class="stars" aria-hidden="true">✦</span><span id="progress"></span></div>
+</section>
+<section id="matchGame" aria-labelledby="matchTitle" hidden>
+<div class="intro"><h1 id="matchTitle">Woodland Match</h1><p>Flip two cards and find the woodland pairs.</p></div>
+<div class="matchPanel">
+<div class="difficultyButtons" role="group" aria-label="Difficulty">
+<button type="button" class="quiet" data-pairs="6" aria-pressed="true">Easy · 6 pairs</button>
+<button type="button" class="quiet" data-pairs="8" aria-pressed="false">Medium · 8 pairs</button>
+<button type="button" class="quiet" data-pairs="12" aria-pressed="false">Hard · 12 pairs</button>
+</div>
+<div class="matchBar"><strong id="pairCount"></strong><button class="quiet" id="newMatch">New game</button></div>
+<div class="matchGrid" id="matchGrid" role="group" aria-label="Matching cards"></div>
+<p class="matchStatus" id="matchStatus" role="status"></p>
+</div>
+</section>
+<section id="bookGame" aria-labelledby="bookTitle" hidden>
+<div class="intro"><h1 id="bookTitle">A Picnic for Six</h1><p>Tap the words or press Read to hear each page.</p></div>
+<div class="book">
+<canvas id="bookArt" width="660" height="270" role="img"></canvas>
+<div class="bookPage">
+<button class="bookText" type="button" id="bookText"></button>
+<div class="bookControls">
+<button class="quiet" type="button" id="bookBack">← Back</button>
+<span id="bookCount"></span>
+<button class="primary" type="button" id="bookRead">▶ Read</button>
+<button class="quiet" type="button" id="bookNext">Next →</button>
+</div>
+<p class="bookStatus" id="bookStatus" role="status"></p>
+</div>
+</div>
+</section>
+</main>
+<script>
+const categories = {
+  Clothes: [
+    ['Raincoat','coat','#eab746','#fbefc9'], ['Garden overalls','overalls','#79a184','#e6ecdb'],
+    ['Star sweater','sweater','#9983bb','#efe6f5'], ['Berry dress','dress','#ca7476','#f8e5e2'],
+    ['Sky T-shirt','shirt','#7dacc2','#e0edf2'], ['Cozy cape','cape','#c7825e','#f4e7d9'],
+    ['Striped jumper','jumper','#539d99','#e1eeea'], ['Picnic dress','picnic','#db956b','#f8e5d6'],
+    ['Patchwork jacket','jacket','#899864','#eaf0d8']
+  ],
+  Hats: [
+    ['Rain hat','rainhat','#eab746','#fbefc9'], ['Flower crown','crown','#ce7778','#f8e5e2'],
+    ['Moon cap','mooncap','#9983bb','#efe6f5'], ['Leaf beret','beret','#79a184','#e6ecdb'],
+    ['Cloud hat','cloud','#7dacc2','#e0edf2'], ['Berry bow','bow','#ca7476','#f8e5e2'],
+    ['Sun hat','sunhat','#edc780','#fbefc9'], ['Party hat','party','#cb79a0','#f8e5ed'],
+    ['Acorn cap','acorn','#a77654','#f4e7d9']
+  ],
+  Extras: [
+    ['Umbrella','umbrella','#7dacc2','#e0edf2'], ['Watering can','can','#79a184','#e6ecdb'],
+    ['Lantern','lantern','#eab746','#fbefc9'], ['Berry basket','basket','#c7825e','#f4e7d9'],
+    ['Little flag','flag','#ca7476','#f8e5e2'], ['Kite','kite','#9983bb','#efe6f5']
+  ]
+};
+const adventures = [
+  {title:'A puddle parade',needs:['coat','rainhat','umbrella'],place:'the puddle parade',scene:'rain',message:'Splish, splash! The puddles are dancing.'},
+  {title:'The sleepy garden',needs:['overalls','crown','can'],place:'the sleepy garden',scene:'garden',message:'The garden woke up in a burst of flowers!'},
+  {title:'A starlight stroll',needs:['sweater','mooncap','lantern'],place:'the starlight stroll',scene:'night',message:'The fireflies came out to light the way!'},
+  {title:'Berry picking',needs:['dress','bow','basket'],place:'the berry patch',scene:'berries',message:'The bushes are full of ripe berries. Save a handful for a friend!'},
+  {title:'Kite hill',needs:['shirt','cloud','kite'],place:'the kite festival',scene:'kites',message:'Look up! Kites are dancing over the hill.'},
+  {title:'The hollow tree',needs:['cape','acorn','lantern'],place:'the hollow tree',scene:'tree',message:'Your lantern found a little door in the old oak!'},
+  {title:'Leaf trail treasure hunt',needs:['jumper','beret','flag'],place:'the leaf trail',scene:'leaves',message:'You marked the spot where the golden leaves land!'},
+  {title:'A sunny picnic',needs:['picnic','sunhat','basket'],place:'the picnic meadow',scene:'picnic',message:'Lunch is ready on the picnic blanket!'},
+  {title:'The woodland birthday',needs:['jacket','party','flag'],place:'the birthday party',scene:'party',message:'The bunting is up. Time for cake!'},
+  {title:'Pebble Brook',needs:['jumper','sunhat','flag'],place:'Pebble Brook',scene:'brook',message:'You found the stepping stones across the brook!'},
+  {title:'The mushroom market',needs:['jacket','acorn','basket'],place:'the mushroom market',scene:'mushrooms',message:'The market is open under the spotted mushroom tops!'},
+  {title:'Snowflake lookout',needs:['cape','cloud','lantern'],place:'the snowy lookout',scene:'snow',message:'A snowflake landed right on your nose!'},
+  {title:'The butterfly meadow',needs:['picnic','bow','can'],place:'the butterfly meadow',scene:'butterflies',message:'The flowers had a drink, and the butterflies fluttered in!'},
+  {title:'The rainbow bridge',needs:['coat','crown','umbrella'],place:'the rainbow bridge',scene:'rainbow',message:'The rain let up and a rainbow stretched across the meadow!'},
+  {title:'The pond regatta',needs:['shirt','beret','flag'],place:'the duck pond',scene:'pond',message:'Wave your flag! The little paper boats are off!'}
+];
+const clues = {
+  coat:'a yellow coat that keeps raindrops out',
+  overalls:'something with shoulder straps for digging in the dirt',
+  sweater:'a warm top with a big star on the front',
+  dress:'a pink dress with little flowers',
+  shirt:'a blue top with a fluffy cloud',
+  cape:'something that swings behind you and fastens at the neck',
+  jumper:'a green top with three pale stripes',
+  picnic:'a peach dress with dots and a pale belt',
+  jacket:'a green jacket with two different colored patches',
+  rainhat:'a yellow hat with a brim that sheds rain',
+  crown:'a ring of blossoms to wear on your head',
+  mooncap:'a pointy purple cap with a little star',
+  bow:'a pink ribbon tied in a bow',
+  cloud:'something fluffy and white, like a cloud you can wear',
+  acorn:'a brown cap with a tiny stem on top',
+  beret:'a soft green hat with a little stalk',
+  sunhat:'a wide straw-colored brim for making shade',
+  party:'a pink cone with a pom-pom on top',
+  umbrella:'something you open over your head when it rains',
+  can:'something with a handle and a spout to give the plants a drink',
+  lantern:'a little light you can carry by its handle',
+  basket:'something with a curved handle to carry your berries',
+  kite:'something with a tail that flies on a string',
+  flag:'a little triangle on a stick to mark the spot'
+};
+const keys = Object.keys(categories);
+const itemNames = new Map(Object.values(categories).flat().map(([name,id])=>[id,name]));
+const roundLength = 3;
+const friends = {
+  Pip:{species:'bunny',fur:'#e8c7a6',width:1,hatY:214},
+  Maple:{species:'fox',fur:'#d8925e',width:.92,hatY:218},
+  Clover:{species:'bear',fur:'#a87b62',width:1.07,hatY:218},
+  Pebble:{species:'mouse',fur:'#a9a1af',width:.89,hatY:216},
+  Fern:{species:'deer',fur:'#bf895d',width:.96,hatY:215},
+  Hazel:{species:'owl',fur:'#9c796a',width:1.03,hatY:215}
+};
+const outfit = {Clothes:null,Hats:null,Extras:null};
+const remainingAdventures = [];
+function drawAdventure(previous){
+  if(remainingAdventures.length===0){
+    remainingAdventures.push(...adventures.keys());
+    for(let i=remainingAdventures.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [remainingAdventures[i],remainingAdventures[j]]=[remainingAdventures[j],remainingAdventures[i]];
+    }
+    if(remainingAdventures.at(-1)===previous){
+      const last=remainingAdventures.length-1;
+      [remainingAdventures[last],remainingAdventures[0]]=[remainingAdventures[0],remainingAdventures[last]];
+    }
+  }
+  return remainingAdventures.pop();
+}
+let friend = 'Pip', tab = 'Clothes', mission = drawAdventure(), destination = null, nextMission = null;
+let restartTimer = null;
+const found = new Set();
+const $ = id => document.getElementById(id);
+const scene = $('scene');
+const context = scene.getContext('2d');
+const tabs = document.querySelector('.tabs');
+const outline = '#39473a';
+
+function path(c, points, fill, stroke = outline, width = 2.3) {
+  c.beginPath();
+  c.moveTo(...points[0]);
+  for (const point of points.slice(1)) point.length === 2 ? c.lineTo(...point) : c.bezierCurveTo(...point);
+  c.closePath();
+  if (fill) { c.fillStyle = fill; c.fill(); }
+  if (stroke) { c.strokeStyle = stroke; c.lineWidth = width; c.stroke(); }
+}
+function oval(c,x,y,rx,ry,fill,stroke=null,angle=0) {
+  c.beginPath(); c.ellipse(x,y,rx,ry,angle,0,Math.PI*2);
+  c.fillStyle=fill; c.fill();
+  if(stroke){c.strokeStyle=stroke;c.lineWidth=2.3;c.stroke();}
+}
+function line(c,points,color=outline,width=2) {
+  c.beginPath();c.moveTo(...points[0]);
+  for(const p of points.slice(1)) p.length===2?c.lineTo(...p):c.bezierCurveTo(...p);
+  c.strokeStyle=color;c.lineWidth=width;c.stroke();
+}
+function star(c,x,y,size,color) {
+  path(c,[[x,y-size],[x+size*.28,y-size*.25],[x+size,y],[x+size*.28,y+size*.25],[x,y+size],[x-size*.28,y+size*.25],[x-size,y],[x-size*.28,y-size*.25]],color,null);
+}
+function flower(c,x,y,size,color) {
+  for(let i=0;i<5;i++){const a=i*Math.PI*2/5;oval(c,x+Math.cos(a)*size*.55,y+Math.sin(a)*size*.55,size*.45,size*.45,color);}
+  oval(c,x,y,size*.33,size*.33,'#e9b957');
+}
+function garment(c,item) {
+  const [,kind,color]=item;
+  c.lineCap='round';c.lineJoin='round';
+  if(['coat','sweater','dress','shirt','cape','jumper','picnic','jacket'].includes(kind)){
+    const hem=kind==='dress'||kind==='picnic'?57:45;
+    path(c,[[-23,-44],[-43,-43,-52,-32,-57,-21],[-64,0],[-48,8],[-42,-5],[-43,15,-hem,31,-hem,43],[-18,49,18,49,hem,43],[hem,31,43,15,42,-5],[48,8],[64,0],[57,-21],[52,-32,43,-43,23,-44],[10,-29,-10,-29,-23,-44]],color);
+    if(kind==='coat'){
+      path(c,[[-22,-44],[0,-34],[-11,-12],[-27,-30]],'#f8d979');
+      path(c,[[22,-44],[0,-34],[11,-12],[27,-30]],'#f8d979');
+      line(c,[[0,-29],[0,42]]); for(const y of [-4,12,28])oval(c,7,y,2.6,2.6,'#fff4cc');
+      line(c,[[-27,15],[-16,19]]);line(c,[[27,15],[16,19]]);
+    }
+    if(kind==='sweater')for(const [x,y,s] of [[0,0,16],[-24,21,6],[24,21,6]])star(c,x,y,s,'#fff1bd');
+    if(kind==='dress')for(const [x,y] of [[-27,24],[0,18],[27,24],[0,-10]])flower(c,x,y,6,'#ffe3c5');
+    if(kind==='shirt')for(const x of [-15,2,18])oval(c,x,3,12,7,'#e9f4f1');
+    if(kind==='cape'){oval(c,0,-29,8,5,'#fbe2a4',outline);line(c,[[0,-23],[0,39]],'#f4c999');}
+    if(kind==='jumper')for(const y of [-12,5,22])line(c,[[-35,y],[35,y]],'#e9f4df',5);
+    if(kind==='picnic'){
+      line(c,[[-43,4],[43,4]],'#fff0cc',6);
+      for(const x of [-36,-18,0,18,36])for(const y of [17,32])oval(c,x,y,3,3,'#fff0cc');
+    }
+    if(kind==='jacket'){
+      line(c,[[0,-29],[0,43]]);
+      path(c,[[-33,-12],[-11,-12],[-11,9],[-33,9]],'#dcb374');
+      path(c,[[12,7],[34,7],[34,31],[12,31]],'#bf795d');
+      for(const y of [-13,1,15,29])oval(c,5,y,2.5,2.5,'#fff0cc');
+    }
+  } else if(kind==='overalls'){
+    path(c,[[-30,-44],[-15,-44],[-15,-19],[15,-19],[15,-44],[30,-44],[34,-16],[47,-6,51,18,43,45],[29,49,16,49,5,45],[0,34],[-5,45],[-16,49,-29,49,-43,45],[-51,18,-47,-6,-34,-16]],color);
+    path(c,[[-13,0],[13,0],[12,15],[0,21],[-12,15]],'#a8b991');
+    for(const x of [-21,21])oval(c,x,-14,4,4,'#f9d987');
+  } else if(kind==='rainhat'||kind==='beret'||kind==='mooncap'||kind==='cloud'){
+    if(kind==='cloud'){
+      path(c,[[-45,19],[-61,11,-54,-12,-36,-12],[-31,-36,-7,-38,6,-22],[22,-35,42,-20,43,-8],[62,-7,63,15,48,19]],'#e4f1ef');
+    }else if(kind==='mooncap'){
+      path(c,[[-47,20],[-35,-17,-7,-29,25,-42],[23,-22,38,-19,48,20]],color);
+      star(c,13,-17,8,'#fff1bd');
+    }else{
+      path(c,[[-49,16],[-35,4,-43,-36,0,-35],[43,-35,35,4,49,16],[32,34,-32,34,-49,16]],color);
+      line(c,[[-37,9],[-13,17,13,17,37,9]]);
+      if(kind==='beret')line(c,[[4,-35],[11,-46]]);
+    }
+  } else if(kind==='sunhat'){
+    oval(c,0,16,57,12,color,outline);
+    path(c,[[-35,15],[-34,-13,-25,-29,0,-29],[25,-29,34,-13,35,15],[16,23,-16,23,-35,15]],color);
+    line(c,[[-32,7],[-14,15,14,15,32,7]],'#ad6e54',5);
+  } else if(kind==='party'){
+    path(c,[[-37,19],[0,-40],[37,19],[17,29,-17,29,-37,19]],color);
+    oval(c,0,-40,7,7,'#f5cc82',outline);
+    for(const [x,y] of [[0,-21],[-10,0],[10,8],[-21,16],[23,17]])oval(c,x,y,3,3,'#fff0cc');
+  } else if(kind==='acorn'){
+    path(c,[[-45,13],[-43,-30,43,-30,45,13],[29,29,-29,29,-45,13]],color);
+    line(c,[[0,-19],[5,-32]],outline,5);
+    for(const x of [-24,-12,0,12,24])line(c,[[x-4,1],[x+4,10]],'#e7bd92',2);
+  } else if(kind==='crown'){
+    line(c,[[-52,10],[-25,27,25,27,52,10]],'#538061',7);
+    for(const [x,y] of [[-43,11],[-23,17],[0,19],[23,17],[43,11]])flower(c,x,y,11,x%2?'#ed9b96':'#fff0ca');
+  } else if(kind==='bow'){
+    path(c,[[-4,2],[-48,-27,-53,-25,-48,12],[-46,27,-24,23,0,10],[24,23,46,27,48,12],[53,-25,48,-27,4,2]],color);
+    oval(c,0,5,11,11,'#efac9f',outline);
+  } else if(kind==='umbrella'){
+    line(c,[[0,-20],[0,34],[0,49,21,49,21,35]],outline,4);
+    path(c,[[-58,0],[-49,-55,49,-55,58,0],[41,-11,31,-11,20,0],[8,-10,-8,-10,-20,0],[-31,-11,-41,-11,-58,0]],color);
+    line(c,[[-20,0],[-19,-21,-11,-35,0,-40],[11,-35,19,-21,20,0]],'#eff7f4');
+  } else if(kind==='can'){
+    oval(c,28,3,22,20,'#fff6e5',outline);
+    path(c,[[-28,9],[-55,-13],[-60,-5],[-35,30],[-27,31]],color);
+    path(c,[[-34,-13],[28,-13],[22,32],[-26,32]],color);
+    oval(c,-3,-13,31,7,'#a9c2a1',outline);
+    flower(c,-3,11,8,'#fff0be');
+  } else if(kind==='lantern'){
+    oval(c,0,-33,12,11,'#fff4c9',outline);
+    path(c,[[-20,-27],[20,-27],[29,26],[20,35],[-20,35],[-29,26]],'#ad7049');
+    path(c,[[-12,-17],[12,-17],[17,24],[-17,24]],'#ffe5a1');
+    star(c,0,5,13,color);
+  } else if(kind==='basket'){
+    c.beginPath();c.arc(0,2,27,Math.PI,0);c.strokeStyle=outline;c.lineWidth=4;c.stroke();
+    for(const x of [-20,0,20])oval(c,x,0,12,10,'#c96d73',outline);
+    path(c,[[-37,4],[37,4],[25,32],[-25,32]],color);
+    line(c,[[-28,16],[28,16]],'#f8d095');
+  } else if(kind==='flag'){
+    line(c,[[-27,-39],[-27,40]],outline,4);
+    path(c,[[-26,-37],[44,-25],[-26,1]],color);
+    star(c,-8,-21,8,'#fff2c5');
+  } else {
+    line(c,[[0,21],[-12,28,20,39,6,47]],outline);
+    path(c,[[0,-45],[36,-10],[0,23],[-36,-10]],color);
+    line(c,[[0,-45],[0,23]],'#f3dff7');line(c,[[-36,-10],[36,-10]],'#f3dff7');
+  }
+}
+function drawLandscape(c) {
+  const setting=adventures[destination]?.scene;
+  const night=setting==='night'||setting==='tree';
+  c.fillStyle=night?'#263d55':setting==='rain'?'#dbe7e8':setting==='kites'?'#d9eaf2':'#e5ead7';c.fillRect(0,0,560,520);
+  oval(c,280,253,178,183,night?'#344b64':'#f1efda');
+  oval(c,421,121,33,33,night?'#fff0b6':'#f7d88d');
+  if(night) for(let i=0;i<23;i++)star(c,22+(i*97)%520,45+(i*43)%255,2+i%4,'#f8eab2');
+  else for(const [x,y] of [[104,132],[465,176]]) {
+    oval(c,x,y,37,10,'#faf6e8');oval(c,x-6,y-6,21,12,'#faf6e8');
+  }
+  path(c,[[0,345],[111,303,175,348,267,348],[398,347,447,299,560,330],[560,520],[0,520]],night?'#405960':'#c4d3af',null);
+  path(c,[[0,397],[113,368,181,395,259,392],[388,380,470,352,560,390],[560,520],[0,520]],night?'#304d4b':'#afc59e',null);
+  oval(c,281,443,110,21,night?'#284142':'#9cb48c');
+  for(let i=0;i<44;i++){
+    const x=12+(i*71)%537,y=376+(i*37)%136;
+    if(x>173&&x<388&&y<469)continue;
+    line(c,[[x,y],[x+3,y-10-i%10]],night?'#6d8981':'#718b68',1.4);
+    if(i%3===0||setting==='garden')flower(c,x+3,y-10-i%10,3+i%3,night?'#fbe1a5':i%2?'#fff5d9':'#ebada5');
+  }
+  if(setting==='rain'){
+    for(const [x,y] of [[115,419],[426,438],[186,476]]){oval(c,x,y,47,8,'#83b3c0');oval(c,x,y,26,3,'#b4d5d7');}
+    for(let i=0;i<24;i++){const x=17+(i*71)%530,y=69+(i*49)%306;line(c,[[x,y],[x-4,y+10]],'#83a9b2',1.5);}
+  }
+  if(setting==='berries')for(const [x,y] of [[90,378],[456,397],[138,423]]){
+    oval(c,x,y,41,25,'#688b67');
+    for(const [dx,dy] of [[-20,2],[-8,-10],[5,5],[20,-5]])oval(c,x+dx,y+dy,5,5,'#a84464');
+  }
+  if(setting==='kites')for(const [x,y,color] of [[101,205,'#ca7476'],[447,213,'#eab746'],[385,150,'#9983bb']]){
+    c.save();c.translate(x,y);c.scale(.55,.55);garment(c,['','kite',color]);c.restore();
+  }
+  if(setting==='tree'){
+    path(c,[[68,410],[95,323],[90,191],[153,194],[145,321],[176,411]],'#775845');
+    for(const [x,y] of [[91,210],[144,190],[117,158]])oval(c,x,y,44,34,'#42695e');
+    path(c,[[110,403],[110,349],[110,326,143,326,143,349],[143,403]],'#e5ab69');
+    oval(c,135,373,3,3,outline);
+  }
+  if(setting==='leaves')for(let i=0;i<22;i++){
+    oval(c,19+i*24,415+(i*29)%76,9,4,i%2?'#d59b51':'#bf7559',null,i*.7);
+  }
+  if(setting==='picnic'){
+    path(c,[[378,394],[493,394],[525,459],[391,459]],'#f0ada0');
+    for(const x of [398,424,450,476])line(c,[[x,397],[x+20,457]],'#fff1d9',3);
+    for(const y of [409,426,443])line(c,[[386,y],[495+(y-409)*.36,y]],'#fff1d9',3);
+  }
+  if(setting==='party'){
+    line(c,[[51,155],[173,187,387,187,509,155]],outline,2);
+    for(let i=0;i<8;i++){
+      const x=63+i*58,y=159+Math.sin(i*Math.PI/7)*19;
+      path(c,[[x,y],[x+25,y+2],[x+13,y+24]],['#ca7476','#eab746','#9983bb'][i%3]);
+    }
+  }
+  if(setting==='brook'||setting==='pond'){
+    if(setting==='brook'){
+      path(c,[[560,355],[386,364,465,422,283,520],[560,520]],'#8abccc',null);
+      for(const [x,y] of [[414,461],[449,427],[481,398]])oval(c,x,y,17,8,'#ded8c6',outline);
+    }else{
+      oval(c,448,416,86,39,'#8abccc');
+      for(const [x,y,color] of [[416,416,'#f4d48f'],[470,428,'#f3c5b8']]){
+        path(c,[[x,y-18],[x+15,y],[x,y]],color,outline,1);
+        path(c,[[x-15,y],[x+19,y],[x+12,y+8],[x-9,y+8]],'#fff7e5',outline,1);
+      }
+    }
+  }
+  if(setting==='mushrooms')for(const [x,y] of [[90,385],[138,423],[449,407]]){
+    oval(c,x,y+12,8,18,'#f5dfb5',outline);
+    path(c,[[x-24,y],[x-19,y-28,x+19,y-28,x+24,y],[x+8,y+8,x-8,y+8,x-24,y]],'#b76763');
+    for(const dx of [-12,0,12])oval(c,x+dx,y-6,3,3,'#fff1d9');
+  }
+  if(setting==='snow'){
+    path(c,[[0,409],[142,377,212,428,354,402],[449,381,503,396,560,380],[560,520],[0,520]],'#e3eeef',null);
+    for(let i=0;i<38;i++)star(c,14+(i*71)%530,73+(i*39)%405,2+i%4,'#fffdf3');
+  }
+  if(setting==='butterflies')for(const [x,y] of [[104,270],[151,341],[427,250],[475,332]]){
+    oval(c,x-7,y,9,6,'#c385bb',null,.55);oval(c,x+7,y,9,6,'#e9a37b',null,-.55);
+    line(c,[[x,y-5],[x,y+6]],outline,1.5);
+  }
+  if(setting==='rainbow'){
+    for(const [i,color] of ['#cb7873','#edb879','#e8d58c','#8aa887','#87a9c0'].entries()){
+      c.beginPath();c.arc(285,335,183-i*8,Math.PI,2*Math.PI);
+      c.strokeStyle=color;c.lineWidth=8;c.stroke();
+    }
+  }
+}
+function drawFriend(c,doll,clothes=null){
+  const {species,fur,width:bodyWidth}=doll;
+  const cream=species==='mouse'?'#f1e3e4':'#fff0d6';
+  if(species==='fox'){
+    path(c,[[321,418],[350,421,385,394,397,367],[410,412,383,440,346,441],[319,439]],fur);
+    path(c,[[367,407],[385,392,393,377,397,367],[402,384,403,397,394,409],[380,416,375,403,367,407]],cream,null);
+  } else if(species==='mouse'){
+    line(c,[[316,412],[353,435,409,428,408,395],[407,381,389,381,384,391]],outline,10);
+    line(c,[[316,412],[353,435,409,428,408,395],[407,381,389,381,384,391]],'#df9da6',6);
+  }
+  c.save();
+  c.translate(280,365);
+  c.scale(bodyWidth,1);
+  oval(c,0,3,44,56,fur,outline);
+  oval(c,0,9,32,40,cream);
+  oval(c,-25,61,24,14,fur,outline,-.1);oval(c,25,61,24,14,fur,outline,.1);
+  oval(c,-48,-5,12,29,fur,outline,.36);oval(c,48,-5,12,29,fur,outline,-.36);
+  if(clothes){
+    c.translate(0,-5);
+    garment(c,clothes);
+  }
+  c.restore();
+  drawFriendFace(c,doll);
+}
+function drawScene() {
+  const c=context;
+  drawLandscape(c);
+  const doll=friends[friend];
+  const {fur,width:bodyWidth,hatY}=doll;
+  drawFriend(c,doll,outfit.Clothes);
+  if(outfit.Hats){c.save();c.translate(280,hatY);c.scale(.96,.83);garment(c,outfit.Hats);c.restore();}
+  if(outfit.Extras){
+    const extra=outfit.Extras[1];
+    const grip=280+53*bodyWidth;
+    const placements={umbrella:[0,351],can:[29,377],lantern:[0,406],basket:[18,386],flag:[22,356],kite:[-5,342]};
+    const [offset,y]=placements[extra];
+    c.save();c.translate(grip+offset,y);c.scale(extra==='can'?-.8:.8,.8);garment(c,outfit.Extras);c.restore();
+    oval(c,grip,379,8,9,fur,outline,.2);
+  }
+  scene.setAttribute('aria-label',friend+' wearing '+(Object.values(outfit).filter(Boolean).map(item=>item[0]).join(', ')||'their original outfit')+' in '+(destination===null?'the meadow':adventures[destination].place));
+}
+function drawFriendFace(c,{species,fur}){
+  const cream=species==='mouse'?'#f1e3e4':'#fff0d6';
+  if(species==='bunny'){
+    oval(c,247,185,19,66,fur,outline,-.21);oval(c,313,185,19,66,fur,outline,.21);
+    oval(c,244,177,10,47,'#db9b92',null,-.21);oval(c,316,177,10,47,'#db9b92',null,.21);
+  } else if(species==='fox'){
+    path(c,[[222,239],[215,170],[255,201],[265,225]],fur);
+    path(c,[[338,239],[345,170],[305,201],[295,225]],fur);
+    path(c,[[225,184],[250,210],[231,219]],'#edac96',null);
+    path(c,[[335,184],[310,210],[329,219]],'#edac96',null);
+  } else if(species==='deer'){
+    for(const side of [-1,1]){
+      oval(c,280+side*66,216,15,34,fur,outline,side*.9);
+      oval(c,280+side*70,212,7,22,'#e5ae9e',null,side*.9);
+      line(c,[[280+side*31,215],[280+side*39,178],[280+side*35,155]],'#725341',5);
+      line(c,[[280+side*39,178],[280+side*50,166]],'#725341',5);
+    }
+  } else if(species==='owl'){
+    path(c,[[209,245],[208,197],[250,219],[310,219],[352,197],[351,245]],fur);
+  } else {
+    const radius=species==='bear'?24:31;
+    for(const x of [222,338]){
+      oval(c,x,208,radius,radius,fur,outline);
+      oval(c,x,208,radius*.63,radius*.63,'#e3adac');
+    }
+  }
+  oval(c,280,259,76,57,fur,outline);
+  oval(c,280,279,55,31,cream);
+  oval(c,248,255,4,6,outline);oval(c,312,255,4,6,outline);
+  oval(c,231,273,10,5,'#e6a398');oval(c,329,273,10,5,'#e6a398');
+  if(species==='owl'){
+    for(const x of [250,310]){
+      oval(c,x,253,24,25,cream);
+      oval(c,x,253,12,13,'#e9bc63',outline);
+      oval(c,x,253,5,7,outline);
+    }
+    path(c,[[269,270],[291,270],[280,288]],'#e9bc63');
+  } else {
+    path(c,[[272,271],[288,271],[280,279]],'#9e5c57',null);
+    line(c,[[280,277],[280,284],[275,290,269,288,267,284]],outline,1.7);
+    line(c,[[280,284],[285,290,291,288,293,284]],outline,1.7);
+  }
+  if(species==='deer')for(const x of [263,280,297])oval(c,x,232,3,4,cream);
+}
+function showItems() {
+  $('items').replaceChildren();
+  $('items').setAttribute('aria-labelledby','tab-'+tab);
+  for(const item of categories[tab]){
+    const button=document.createElement('button');
+    button.type='button';button.className='item';button.style.setProperty('--tile',item[3]);
+    button.setAttribute('aria-pressed',String(outfit[tab]===item));
+    const icon=document.createElement('canvas');
+    icon.width=128;icon.height=100;icon.setAttribute('aria-hidden','true');
+    const c=icon.getContext('2d');c.translate(64,49);c.scale(.86,.86);garment(c,item);
+    button.append(icon,item[0]);
+    button.addEventListener('click',()=>{
+      const category=tab;
+      returnToMeadow();
+      outfit[category]=outfit[category]===item?null:item;
+      for(const [index, tile] of [...$('items').children].entries()){
+        tile.setAttribute('aria-pressed',String(categories[tab][index]===outfit[tab]));
+      }
+      drawScene();
+    });
+    $('items').append(button);
+  }
+}
+function chooseTab(key, focus=false){
+  tab=key;
+  for(const button of tabs.children){
+    const active=button.textContent===key;
+    button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;
+    if(active&&focus)button.focus();
+  }
+  showItems();
+}
+for(const key of keys){
+  const button=document.createElement('button');button.type='button';button.id='tab-'+key;button.textContent=key;
+  button.setAttribute('role','tab');button.setAttribute('aria-controls','items');
+  button.addEventListener('click',()=>chooseTab(key));
+  button.addEventListener('keydown',event=>{
+    const targets={ArrowLeft:keys[(keys.indexOf(tab)+2)%3],ArrowRight:keys[(keys.indexOf(tab)+1)%3],Home:keys[0],End:keys[2]};
+    if(targets[event.key]){event.preventDefault();chooseTab(targets[event.key],true);}
+  });
+  tabs.append(button);
+}
+function showMission(){
+  const adventure=adventures[mission];
+  $('missionTitle').textContent=adventure.title;
+  const clueIndex=found.size%keys.length;
+  const named=adventure.needs.filter((_,index)=>index!==clueIndex).map(id=>itemNames.get(id));
+  $('missionHint').textContent='Pick '+named.join(' and ')+'. Then find '+clues[adventure.needs[clueIndex]]+'.';
+}
+function showProgress(){
+  const total=roundLength;
+  $('progress').textContent=found.size===total?'All '+total+' adventures found!':found.size+' of '+total+' adventures found';
+}
+function returnToMeadow(){
+  if(restartTimer!==null){
+    clearTimeout(restartTimer);restartTimer=null;
+    found.clear();
+    for(const key of keys)outfit[key]=null;
+    showProgress();
+  }
+  if(nextMission!==null){mission=nextMission;nextMission=null;showMission();}
+  destination=null;$('go').textContent='Off we go! →';$('feedback').textContent='';
+}
+function startNewRound(){
+  returnToMeadow();chooseTab(keys[0]);drawScene();
+  $('feedback').textContent='A new round is ready!';
+}
+for(const button of document.querySelectorAll('[data-friend]')){
+  button.addEventListener('click',()=>{
+    friend=button.dataset.friend;
+    for(const option of document.querySelectorAll('[data-friend]'))option.setAttribute('aria-pressed',String(option===button));
+    $('friendName').textContent=friend+' the '+friends[friend].species;
+    drawScene();
+  });
+}
+$('clear').addEventListener('click',()=>{
+  for(const key of keys)outfit[key]=null;
+  returnToMeadow();showItems();drawScene();$('feedback').textContent='Outfit cleared.';
+});
+$('shuffle').addEventListener('click',()=>{
+  returnToMeadow();
+  for(const key of keys){
+    const choices=categories[key].filter(item=>item!==outfit[key]);
+    outfit[key]=choices[Math.floor(Math.random()*choices.length)];
+  }
+  showItems();drawScene();$('feedback').textContent='A surprise outfit for '+friend+'!';
+});
+$('go').addEventListener('click',()=>{
+  if(restartTimer!==null){startNewRound();return;}
+  if(nextMission!==null){returnToMeadow();drawScene();return;}
+  const adventure=adventures[mission];
+  const worn=Object.values(outfit).filter(Boolean).map(item=>item[1]);
+  const missing=keys.filter((category,index)=>!worn.includes(adventure.needs[index]));
+  if(missing.length){
+    $('feedback').textContent='Look again in '+missing.join(' and ')+'.';
+    return;
+  }
+  destination=mission;found.add(mission);nextMission=drawAdventure(mission);
+  const complete=found.size===roundLength;
+  $('feedback').textContent=complete?adventure.message+' A new round starts in a moment.':adventure.message;
+  showProgress();
+  $('go').textContent=complete?'Start new round →':'Next adventure →';
+  if(complete)restartTimer=setTimeout(startNewRound,4500);
+  drawScene();
+  const stage=scene.parentElement;
+  stage.classList.remove('win');void stage.offsetWidth;stage.classList.add('win');
+  if(matchMedia('(max-width: 760px)').matches){
+    stage.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  }
+});
+chooseTab(tab);showMission();showProgress();drawScene();
+
+const woodlandFinds=[
+  ['Acorn cap','acorn','#a77654'],['Berry basket','basket','#c7825e'],
+  ['Lantern','lantern','#eab746'],['Oak leaf','oakleaf','#79a184'],
+  ['Wildflower','wildflower','#ce7778'],['Kite','kite','#9983bb']
+];
+const friendPictures=Object.entries(friends).map(([name,doll])=>({name,doll}));
+const findPictures=woodlandFinds.map(item=>({name:item[0],item}));
+let firstCard=null, matchedPairs=0, flipTimer=null, pairTotal=6;
+const grid=$('matchGrid');
+const difficultyButtons=document.querySelectorAll('[data-pairs]');
+
+function drawMatchPicture(canvas,picture){
+  const c=canvas.getContext('2d');
+  c.translate(70,64);
+  if(picture.doll){
+    c.scale(.61,.61);
+    c.translate(-280,-221);
+    drawFriendFace(c,picture.doll);
+  }else{
+    c.scale(.94,.94);
+    const [,kind,color]=picture.item;
+    if(kind==='oakleaf'){
+      path(c,[[0,30],[-31,19,-35,8,-19,4],[-43,-11,-27,-27,-12,-20],[-19,-46,19,-46,12,-20],[27,-27,43,-11,19,4],[35,8,31,19,0,30]],color);
+      line(c,[[0,-25],[0,39]],'#4b6953',3);
+    }else if(kind==='wildflower'){
+      line(c,[[0,-12],[0,40]],'#538061',5);
+      oval(c,-11,20,13,6,'#79a184',null,.55);
+      oval(c,10,26,13,6,'#79a184',null,-.55);
+      flower(c,0,-15,24,color);
+    }else{
+      garment(c,picture.item);
+    }
+  }
+}
+
+function showCard(card,state){
+  const {button,picture,index}=card;
+  const {name}=picture;
+  button.dataset.state=state;
+  button.setAttribute('aria-disabled',String(state!=='closed'));
+  button.setAttribute('aria-label','Card '+(index+1)+', '+(state==='closed'?'face down':name+(state==='matched'?', matched':'')));
+  button.children[2].textContent=state==='closed'?'':name;
+}
+function showPairCount(){
+  $('pairCount').textContent=matchedPairs+' of '+pairTotal+' pairs found';
+}
+function flipCard(card){
+  if(flipTimer!==null||card.button.dataset.state!=='closed')return;
+  showCard(card,'open');
+  if(firstCard===null){
+    firstCard=card;
+    $('matchStatus').textContent='Flip one more card.';
+    return;
+  }
+  const other=firstCard;
+  firstCard=null;
+  if(other.picture===card.picture){
+    showCard(other,'matched');
+    showCard(card,'matched');
+    matchedPairs++;
+    showPairCount();
+    $('matchStatus').textContent=matchedPairs===pairTotal?'You found every woodland pair!':'Matched: '+card.picture.name+'!';
+    return;
+  }
+  $('matchStatus').textContent='Remember those spots!';
+  flipTimer=setTimeout(()=>{
+    showCard(other,'closed');
+    showCard(card,'closed');
+    flipTimer=null;
+    $('matchStatus').textContent='Flip two cards to try again.';
+  },1100);
+}
+function newMatch(){
+  clearTimeout(flipTimer);
+  flipTimer=null;firstCard=null;matchedPairs=0;
+  const pictures=[...friendPictures,...findPictures.slice(0,pairTotal-friendPictures.length)];
+  const deck=[...pictures,...pictures];
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  grid.replaceChildren();
+  deck.forEach((picture,index)=>{
+    const button=document.createElement('button');
+    button.type='button';button.className='matchCard';
+    const back=document.createElement('span');
+    back.className='cardBack';back.textContent='✿';back.setAttribute('aria-hidden','true');
+    const canvas=document.createElement('canvas');
+    canvas.width=140;canvas.height=128;canvas.setAttribute('aria-hidden','true');
+    const caption=document.createElement('span');
+    caption.setAttribute('aria-hidden','true');
+    button.append(back,canvas,caption);
+    drawMatchPicture(canvas,picture);
+    const card={button,picture,index};
+    showCard(card,'closed');
+    button.addEventListener('click',()=>flipCard(card));
+    grid.append(button);
+  });
+  showPairCount();
+  $('matchStatus').textContent='';
+}
+$('newMatch').addEventListener('click',newMatch);
+for(const button of difficultyButtons){
+  button.addEventListener('click',()=>{
+    const selectedTotal=Number(button.dataset.pairs);
+    if(selectedTotal===pairTotal)return;
+    pairTotal=selectedTotal;
+    for(const option of difficultyButtons)option.setAttribute('aria-pressed',String(option===button));
+    newMatch();
+  });
+}
+const gameButtons=document.querySelectorAll('[data-game]');
+for(const button of gameButtons){
+  button.addEventListener('click',()=>{
+    for(const option of gameButtons){
+      const selected=option===button;
+      $(option.getAttribute('aria-controls')).hidden=!selected;
+      option.setAttribute('aria-pressed',String(selected));
+    }
+    $('shuffle').hidden=button.dataset.game!=='dress';
+    if(button.dataset.game!=='book')stopReading();
+  });
+}
+newMatch();
+
+const bookPages=[
+  {text:'“Let’s have a picnic!” says Pip.',cast:['Pip'],object:'basket',alt:'Pip with a picnic basket'},
+  {text:'Maple has a mat. “Sit with me,” says Maple.',cast:['Maple','Pip'],object:'mat',alt:'Maple and Pip with a picnic mat'},
+  {text:'Clover has jam. Pebble has bread.',cast:['Clover','Pebble'],object:'food',alt:'Clover and Pebble with jam and bread'},
+  {text:'Fern has plums. Hazel has cups.',cast:['Fern','Hazel'],object:'cups',alt:'Fern and Hazel with plums and cups'},
+  {text:'Drip, drop! “Come sit under the tree,” says Pip.',cast:['Pip','Maple','Clover','Pebble','Fern','Hazel'],object:'rain',alt:'All six friends sheltering under a tree'},
+  {text:'The sun is back. We eat. We laugh. We share.',cast:['Pip','Maple','Clover','Pebble','Fern','Hazel'],object:'picnic',alt:'All six friends sharing a sunny picnic'}
+];
+let bookPage=0, reading=null;
+const bookText=$('bookText');
+const voice=window.speechSynthesis;
+const canRead=!!voice&&typeof SpeechSynthesisUtterance==='function';
+const voiceUnavailable='Read-aloud is unavailable in this browser.';
+
+function drawBookPage(page){
+  const canvas=$('bookArt');
+  canvas.setAttribute('aria-label',page.alt);
+  const c=canvas.getContext('2d');
+  const rain=page.object==='rain';
+  c.fillStyle=rain?'#d9e6e5':'#e9edd7';c.fillRect(0,0,660,270);
+  if(!rain)oval(c,551,65,29,29,'#f6d487');
+  path(c,[[0,165],[142,126,245,182,363,163],[462,145,558,123,660,157],[660,270],[0,270]],'#bfd2ab',null);
+  path(c,[[0,209],[154,174,269,227,421,196],[537,171,609,197,660,185],[660,270],[0,270]],'#a9c295',null);
+  if(rain){
+    path(c,[[278,216],[298,83],[352,83],[378,216]],'#a47c5d');
+    for(const x of [190,266,344,422,490])oval(c,x,52,93,42,'#7eaa80');
+    for(let i=0;i<18;i++){const x=14+i*36,y=65+(i*29)%120;if(x<130||x>530)line(c,[[x,y],[x-4,y+9]],'#78a4b1',2);}
+  }
+  const group=page.cast.length>2;
+  for(const [index,name] of page.cast.entries()){
+    const x=group?82+index*96:page.cast.length===1?278:225+index*150;
+    const scale=group?.36:.49;
+    c.save();c.translate(x,208);c.scale(scale,scale);c.translate(-280,-441);
+    drawFriend(c,friends[name]);c.restore();
+  }
+  if(['mat','food','cups','picnic'].includes(page.object)){
+    path(c,[[204,209],[443,209],[468,255],[182,255]],'#d99487');
+    for(const y of [220,237,249])line(c,[[193,y],[452,y]],'#f7ded0',3);
+  }
+  if(page.object==='basket'){
+    c.save();c.translate(411,208);garment(c,categories.Extras[3]);c.restore();
+  }
+  if(page.object==='food'||page.object==='picnic'){
+    oval(c,304,229,32,12,'#efc17e',outline);
+    path(c,[[351,218],[378,218],[380,244],[349,244]],'#b36175');
+    line(c,[[349,218],[380,218]],'#f5e5cd',5);
+  }
+  if(page.object==='cups'||page.object==='picnic'){
+    for(const x of [224,245,266])oval(c,x,230,9,8,'#a17198',outline);
+    for(const x of [397,422])path(c,[[x-9,219],[x+9,219],[x+6,240],[x-6,240]],'#f5d68e');
+  }
+}
+function stopReading(){
+  const wasReading=reading!==null;
+  reading=null;
+  if(wasReading)voice.cancel();
+  for(const word of bookText.children)word.classList.remove('readingWord');
+  $('bookRead').textContent='▶ Read';
+}
+function readBook(){
+  if(reading){stopReading();return;}
+  if(!canRead){$('bookStatus').textContent=voiceUnavailable;return;}
+  const utterance=new SpeechSynthesisUtterance(bookPages[bookPage].text);
+  utterance.lang='en-US';utterance.rate=.82;
+  reading=utterance;
+  $('bookStatus').textContent='';
+  $('bookRead').textContent='■ Stop';
+  utterance.onboundary=event=>{
+    if(reading!==utterance||event.name==='sentence')return;
+    for(const word of bookText.children){
+      const start=Number(word.dataset.start);
+      word.classList.toggle('readingWord',event.charIndex>=start&&event.charIndex<start+word.textContent.length);
+    }
+  };
+  utterance.onend=()=>{if(reading===utterance){reading=null;stopReading();}};
+  utterance.onerror=()=>{
+    if(reading!==utterance)return;
+    reading=null;stopReading();
+    $('bookStatus').textContent='The voice could not play. Try Read again.';
+  };
+  voice.speak(utterance);
+}
+function showBookPage(){
+  stopReading();
+  const page=bookPages[bookPage];
+  bookText.replaceChildren();
+  for(const match of page.text.matchAll(/\S+|\s+/g)){
+    if(/^\s/.test(match[0])){bookText.append(match[0]);continue;}
+    const word=document.createElement('span');
+    word.textContent=match[0];word.dataset.start=match.index;bookText.append(word);
+  }
+  $('bookCount').textContent='Page '+(bookPage+1)+' of '+bookPages.length;
+  $('bookBack').disabled=bookPage===0;
+  $('bookNext').textContent=bookPage===bookPages.length-1?'Start over':'Next →';
+  $('bookStatus').textContent=canRead?'':voiceUnavailable;
+  drawBookPage(page);
+}
+bookText.addEventListener('click',readBook);
+$('bookRead').addEventListener('click',readBook);
+$('bookBack').addEventListener('click',()=>{if(bookPage>0){bookPage--;showBookPage();}});
+$('bookNext').addEventListener('click',()=>{bookPage=(bookPage+1)%bookPages.length;showBookPage();});
+showBookPage();
+</script>
+</body>
+</html>
