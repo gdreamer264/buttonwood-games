@@ -20,6 +20,7 @@
 .cottageArchitecture{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .cottageCatalog{padding:12px;background:#fffbf2;border:1px solid var(--line);border-radius:16px}.cottageCatalog h2{margin:0 0 8px}.cottageCatalog .gamePicker{padding:0}.cottageItems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,91px),1fr));margin-bottom:0}.cottageItems button{border-radius:12px;line-height:1.2;min-height:70px}.roomPiece[data-kind=dining]{width:33%}.roomPiece[data-kind=bunk],.roomPiece[data-kind=dresser],.roomPiece[data-kind=cupboard]{width:28%}.roomPiece[data-kind=rocker]{width:25%}.roomPiece[data-kind=roundrug],.roomPiece[data-kind=runner]{width:24%;z-index:1}.roomPiece[aria-pressed=true]{z-index:3}
 .postBox.alphabetSlot{background:#ead9b7;border-color:#a98059;box-shadow:inset 0 -5px #c3986d}.postBox.alphabetSlot[data-delivered=true]{background:#f7e2ad}.postBox.alphabetSlot::before{content:"";display:block;width:52%;height:8px;margin:0 auto 9px;background:#594737;border-radius:6px}.postBox.alphabetSlot span{font:700 40px/1 Georgia,serif}.postStamp.alphabetStamp{font-weight:800;font-size:24px;line-height:1}
+.seek{max-width:740px;margin:0 auto 30px}.seekBar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}.seekBar h2{font:700 26px Georgia,serif;margin:0}.seekScene{position:relative;border:2px solid #819678;border-radius:18px;overflow:hidden;background:#dce7ce}.seekScene canvas{display:block;width:100%;height:auto}.seekTarget{position:absolute;transform:translate(-50%,-50%);width:clamp(32px,8%,59px);aspect-ratio:1;border:2px solid transparent;border-radius:50%;background:transparent;touch-action:manipulation}.seekTarget:hover{background:#fff5bc23}.seekTarget[aria-pressed=true]{border-color:#fff2ae;background:#fff2ae35;color:#294a36}.seekList{display:flex;flex-wrap:wrap;gap:7px;list-style:none;padding:0;margin:12px 0}.seekList li{background:#fff8e9;border:1px solid var(--line);border-radius:12px;padding:5px 10px}.seekList li[data-found=true]{background:#dce6d0}.seekList canvas{width:42px;height:auto;vertical-align:middle;margin-right:4px}.seekControls{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.seekStatus{min-height:24px;margin:8px 0}
 </style>
 </head>
 <body>
@@ -32,6 +33,7 @@
 <button class="quiet" data-game="math" aria-controls="mathGame" aria-pressed="false">Acorn Trail Math</button>
 <button class="quiet" data-game="post" aria-controls="postGame" aria-pressed="false">Buttonwood Post Office</button>
 <button class="quiet" data-game="cottage" aria-controls="cottageGame" aria-pressed="false">Cozy Cottage</button>
+<button class="quiet" data-game="seek" aria-controls="seekGame" aria-pressed="false">Hide &amp; Seek</button>
 </nav>
 <section id="dressGame" aria-labelledby="dressTitle">
 <div class="intro"><h1 id="dressTitle">Buttonwood Dress-Up</h1><p>Dress a woodland friend and see where their outfit takes them.</p></div>
@@ -135,6 +137,16 @@
 <div class="cottageItems" id="cottageItems" role="group" aria-label="Add a piece"></div>
 </section>
 <p class="cottageStatus" id="cottageStatus" role="status"></p>
+</div>
+</section>
+<section id="seekGame" aria-labelledby="seekTitle" hidden>
+<div class="intro"><h1 id="seekTitle">Woodland Hide &amp; Seek</h1><p>Look at the pictures below, then tap what you find in the woods.</p></div>
+<div class="seek">
+<div class="seekBar"><h2 id="seekPlace" tabindex="-1"></h2><strong id="seekProgress"></strong></div>
+<div class="seekScene" id="seekScene" role="group" aria-labelledby="seekPlace"><canvas id="seekArt" width="660" height="430" aria-hidden="true"></canvas></div>
+<ul class="seekList" id="seekList" aria-label="Things to find"></ul>
+<p class="seekStatus" id="seekStatus" role="status"></p>
+<div class="seekControls"><button class="quiet" type="button" id="seekHint">Give me a hint</button><button class="primary" type="button" id="seekNext" hidden>Next scene →</button></div>
 </div>
 </section>
 </main>
@@ -1649,6 +1661,327 @@ for(const name of Object.keys(cottageCatalog)){
 }
 showCottageCategory(Object.keys(cottageCatalog)[0]);
 showCottage();
+
+const seekScenes=[
+  {name:'Sunpatch Meadow',density:1,targets:[
+    ['Pip',119,224],['Kite',522,133],['Acorn',429,338]
+  ]},
+  {name:'Pebble Brook',density:2,targets:[
+    ['Maple',98,218],['Pebble',486,272],['Lantern',549,248],['Berry basket',179,310],['Wildflower',126,365]
+  ]},
+  {name:'Treetop Hollow',density:3,targets:[
+    ['Hazel',238,123],['Clover',99,295],['Fern',493,198],['Acorn',525,347],['Kite',413,94],['Watering can',295,299],['Wildflower',119,390]
+  ]},
+  {name:'Mushroom Market',density:4,targets:[
+    ['Clover',110,265],['Pebble',420,341],['Fern',535,224],['Berry basket',193,246],['Lantern',361,247],['Acorn',237,367],['Wildflower',585,371]
+  ]},
+  {name:'Kite Hill',density:5,targets:[
+    ['Pip',170,242],['Maple',523,275],['Pebble',295,360],['Kite',465,106],['Lantern',98,350],['Watering can',377,219],['Wildflower',601,351],['Acorn',407,383]
+  ]},
+  {name:'Sunpatch Orchard',density:6,targets:[
+    ['Hazel',99,224],['Fern',247,260],['Clover',516,230],['Maple',389,348],['Berry basket',170,340],['Watering can',576,354],['Acorn',292,387],['Wildflower',445,272],['Lantern',328,245]
+  ]},
+  {name:'Clover Burrow',density:7,landmark:'burrow',targets:[
+    ['Pip',242,225],['Hazel',488,216],['Lantern',336,253],['Acorn',535,351],['Berry basket',91,308],['Wildflower',390,371],['Umbrella',206,336],['Fern',584,252]
+  ]},
+  {name:'Fernbank Den',density:8,landmark:'den',targets:[
+    ['Maple',230,225],['Hazel',503,215],['Clover',577,276],['Little flag',359,256],['Acorn',123,332],['Wildflower',449,369],['Lantern',282,341],['Berry basket',552,377]
+  ]},
+  {name:'Thimble Nook',density:9,landmark:'nook',targets:[
+    ['Pebble',245,218],['Clover',509,280],['Pip',570,214],['Kite',475,98],['Wildflower',125,307],['Acorn',348,294],['Lantern',241,357],['Watering can',583,372],['Berry basket',381,387]
+  ]},
+  {name:'Sleepy Garden',density:10,landmark:'garden',targets:[
+    ['Clover',237,205],['Fern',500,249],['Pebble',125,301],['Watering can',365,268],['Wildflower',575,234],['Berry basket',560,355],['Little flag',348,319],['Acorn',213,382],['Umbrella',78,243]
+  ]},
+  {name:'Duck Pond Regatta',density:11,landmark:'pond',targets:[
+    ['Pip',122,217],['Maple',568,209],['Pebble',283,365],['Paper boat',406,238],['Little flag',590,260],['Wildflower',165,374],['Lantern',615,330],['Acorn',413,371],['Berry basket',81,330]
+  ]},
+  {name:'Buttonwood Post Office',density:12,landmark:'post',targets:[
+    ['Pip',266,217],['Hazel',542,229],['Pebble',122,295],['Maple',527,337],['Stamped letter',376,247],['Little flag',600,190],['Umbrella',454,253],['Acorn',240,365],['Lantern',607,280],['Berry basket',401,371]
+  ]}
+];
+const seekObjects={
+  Kite:categories.Extras.find(item=>item[1]==='kite'),
+  Lantern:categories.Extras.find(item=>item[1]==='lantern'),
+  'Berry basket':categories.Extras.find(item=>item[1]==='basket'),
+  'Watering can':categories.Extras.find(item=>item[1]==='can'),
+  Umbrella:categories.Extras.find(item=>item[1]==='umbrella'),
+  'Little flag':categories.Extras.find(item=>item[1]==='flag')
+};
+const seekScene=$('seekScene'), seekList=$('seekList');
+let seekLevel=0, seekFound=new Set();
+const seekPropScale={Lantern:.61,Acorn:.46,'Berry basket':.65,Kite:.62,'Watering can':.76,Wildflower:.78,Umbrella:.78,'Little flag':.8,'Stamped letter':.8};
+
+const seekDecoyColors={
+  Acorn:['#a78063','#c39870','#815f51'],
+  Wildflower:['#dca85e','#a18bb6','#eee1aa'],
+  'Paper boat':['#d08c79','#9cb078','#b49ac0'],
+  'Stamped letter':['#7b9086','#a486b1','#b88852'],
+  Lantern:['#b2cbb7','#aab9d1','#e0a89d'],
+  'Berry basket':['#e1bb66','#92a86e','#ad84a4'],
+  Kite:['#b9a963','#77a99b','#cd8a79'],
+  Umbrella:['#b390ad','#c78c75','#8fa475'],
+  'Watering can':['#869bad','#b48dad','#d39b73'],
+  'Little flag':['#869bad','#c5a265','#83a57e']
+};
+function drawSeekItem(c,name,x,y,size,decoyIndex=-1){
+  const lookAlike=decoyIndex>=0;
+  const color=lookAlike?seekDecoyColors[name][decoyIndex]:null;
+  c.save();c.translate(x,y);
+  if(friends[name]){
+    c.scale(size*.29,size*.29);c.translate(-280,-283);drawStoryFriend(c,name);
+  }else if(name==='Acorn'){
+    c.scale(size*2.55,size*2.55);
+    if(lookAlike){
+      oval(c,0,1,9,12,color,outline);
+      line(c,[[-4,-7],[0,-10],[4,-7]],'#dec097',2);
+    }else drawTrailFind(c,'acorn',0,0);
+  }else if(name==='Wildflower'){
+    c.scale(size,size);line(c,[[0,-12],[0,34]],'#496b52',5);flower(c,0,-8,22,color??'#ce7778');
+  }else if(name==='Paper boat'||name==='Stamped letter'){
+    c.scale(size,size);
+    if(name==='Paper boat'){
+      path(c,[[-29,4],[28,4],[16,24],[-17,24]],lookAlike?'#edc58a':'#f3e6c1');
+      path(c,[[-17,4],[0,-29],[19,4]],color??'#8aa7b5');
+      if(!lookAlike)star(c,0,-9,5,'#fff3ca');
+    }else{
+      path(c,[[-29,-18],[29,-18],[29,18],[-29,18]],lookAlike?'#e8ccaa':'#fff1c9');
+      line(c,[[-29,-18],[0,4],[29,-18]],outline);
+      oval(c,0,4,6,6,color??'#bc6460');
+    }
+  }else{
+    c.scale(size,size);
+    if(lookAlike&&name==='Lantern'){
+      garment(c,['','lantern','#93b6a1']);
+      oval(c,0,5,14,17,color,outline);
+    }else if(lookAlike&&name==='Berry basket'){
+      path(c,[[-37,4],[37,4],[25,32],[-25,32]],'#c69d69');
+      line(c,[[-22,5],[-12,-29,12,-29,22,5]],outline,4);
+      for(const x of [-20,0,20])oval(c,x,4,10,8,color,outline);
+    }else if(lookAlike){
+      garment(c,['',seekObjects[name][1],color]);
+      if(name==='Kite')oval(c,0,-10,9,9,'#fff0c1',outline);
+    }else garment(c,seekObjects[name]);
+  }
+  c.restore();
+}
+function seekTree(c,x,y,size){
+  c.save();c.translate(x,y);c.scale(size,size);
+  path(c,[[-19,0],[-11,-76],[11,-76],[21,0]],'#a88061');
+  line(c,[[0,-7],[-3,-49]],'#765a48',2);
+  for(const [dx,dy,r] of [[-25,-69,30],[24,-73,34],[0,-100,40]])oval(c,dx,dy,r,r*.78,'#72936a');
+  c.restore();
+}
+function seekShrub(c,x,y,size,berries=false){
+  c.save();c.translate(x,y);c.scale(size,size);
+  oval(c,-19,0,24,18,'#718f65');
+  oval(c,16,2,27,18,'#638761');
+  oval(c,0,-12,28,22,'#81a071');
+  for(const [dx,dy] of [[-24,3],[-12,-10],[6,-18],[15,1],[29,5]]){
+    oval(c,dx,dy,8,3,'#a9b986',null,-.5);
+    if(berries)oval(c,dx+3,dy+6,3,3,'#b57879');
+  }
+  c.restore();
+}
+function drawSeekLandmark(c,landmark){
+  if(!landmark)return;
+  if(landmark==='burrow'||landmark==='den'){
+    const burrow=landmark==='burrow';
+    if(burrow)oval(c,136,208,118,69,'#78965e',outline);
+    else path(c,[[27,252],[58,148],[134,106],[209,139],[248,248]],'#a58f7c');
+    oval(c,131,207,43,49,burrow?'#b7835d':'#665448',outline);
+    if(burrow)oval(c,152,212,4,4,'#f4ce85');
+    for(const x of [41,58,206,224])seekShrub(c,x,244,.52);
+    return;
+  }
+  if(landmark==='nook'||landmark==='post'){
+    const nook=landmark==='nook', x=nook?46:51;
+    path(c,[[x,152],[x+181,152],[x+181,247],[x,247]],'#d9b486');
+    path(c,nook?[[x-14,154],[x+90,65],[x+196,154]]:[[x-14,154],[x+20,102],[x+158,102],[x+196,154]],nook?'#6b8c80':'#ac6d5d');
+    if(nook)oval(c,x+90,119,19,18,'#f2d694',outline);
+    else{
+      path(c,[[x+23,160],[x+156,160],[x+156,186],[x+23,186]],'#fff0cd');
+      c.fillStyle=outline;c.font='bold 15px Georgia';c.fillText('POST OFFICE',x+39,178);
+      path(c,[[x+194,222],[x+194,196],[x+224,196],[x+224,222]],'#638577');
+      line(c,[[x+209,222],[x+209,250]],'#765c46',5);
+    }
+    oval(c,x+70,216,24,31,'#946d53',outline);oval(c,x+81,216,3,3,'#f0ca7d');
+    return;
+  }
+  if(landmark==='garden'){
+    for(const [x,y] of [[113,212],[340,253],[524,310]]){
+      path(c,[[x-58,y-18],[x+49,y-18],[x+66,y+16],[x-68,y+16]],'#aa805b');
+      for(const dx of [-31,-12,9,31]){
+        line(c,[[x+dx,y],[x+dx,y-15]],'#538061',3);
+        oval(c,x+dx+5,y-13,7,4,'#749b70',null,-.4);
+      }
+    }
+    for(const x of [47,92,137,182])line(c,[[x,161],[x,130]],'#a9815e',5);
+    line(c,[[43,148],[186,148]],'#a9815e',5);
+    return;
+  }
+  oval(c,369,245,165,75,'#8bbac1',outline);
+  for(const [x,y] of [[298,226],[353,275],[468,228],[414,279]])line(c,[[x-16,y],[x,y-4,x+11,y-4,x+18,y]],'#deeee3',2);
+  for(const [x,y] of [[270,253],[468,282],[325,196]])oval(c,x,y,15,7,'#7f9e72');
+}
+function seekDryGround(scene,x,y,padding){
+  if(y<228||y+padding>428)return false;
+  if(scene.landmark==='pond'){
+    return Math.hypot((x-369)/(165+padding),(y-245)/(75+padding))>1;
+  }
+  if(scene.density===2){
+    const [left,right]=y<255?[272,411]:y<340?[278,461]:y<390?[230,435]:[175,381];
+    return x<left-padding||x>right+padding;
+  }
+  if(['burrow','den','nook','post'].includes(scene.landmark)&&x<250+padding&&y<249+padding)return false;
+  return true;
+}
+function drawSeekScene(scene){
+  const c=$('seekArt').getContext('2d'), n=scene.density;
+  const forest=n===3||n===6;
+  c.fillStyle=forest?'#abc6bc':'#e7ead1';c.fillRect(0,0,660,430);
+  oval(c,535,64,29,29,'#f3d38a');
+  path(c,[[0,133],[124,119,207,52,336,143],[447,204,554,95,660,127],[660,430],[0,430]],'#b0c79c',null);
+  path(c,[[0,224],[156,158,281,258,412,203],[530,162,588,208,660,159],[660,430],[0,430]],forest?'#82a480':'#9db985',null);
+  if(n===2){
+    path(c,[[291,110],[442,146,211,242,330,287],[393,322,272,380,176,430],[322,430],[443,360,490,313,422,277],[316,235,499,144,321,110]],'#8bbac1','#80a798');
+    for(const [x,y,w] of [[342,158,31],[306,226,26],[358,285,49],[405,319,43],[311,380,55],[269,406,59]])line(c,[[x-w/2,y],[x,y-5,x+w/3,y-4,x+w/2,y-2]],'#d3e6df',2);
+    path(c,[[221,237],[277,194,333,189,395,205],[403,220],[331,206,280,214,225,251]],'#ba8c62');
+    for(const [x,y] of [[236,228],[266,212],[303,202],[342,199],[377,204]])line(c,[[x,y],[x,y-19]],'#765842',4);
+    line(c,[[236,209],[273,182,329,171,377,185]],'#765842',5);
+  }else{
+    path(c,[[306,144],[262,207,467,237,362,295],[277,336,177,373,105,430],[252,430],[322,375,369,354,417,311],[520,220,333,195,333,148]],forest?'#b2ac80':'#dbca96',null);
+  }
+  const treeGroups=[
+    [[26,161,1],[92,146,.72],[578,162,1.05],[643,219,1.48],[20,327,1.5]],
+    [[23,167,1.12],[137,134,.72],[526,159,.86],[609,200,1.12],[653,323,1.6],[24,351,1.42],[174,260,.97]],
+    [[15,158,1.45],[86,141,.84],[157,177,1.23],[269,139,.86],[357,158,1.05],[541,144,.95],[627,200,1.32],[33,305,1.53],[184,258,1.19],[469,250,1.26],[638,351,1.65]],
+    [[25,175,1.34],[146,149,.7],[303,136,.7],[519,132,.82],[626,179,1.3]],
+    [[25,200,1.5],[103,151,.89],[564,136,.91],[643,223,1.54]],
+    [[24,169,1.25],[138,183,1.14],[238,155,.95],[379,181,1.16],[490,148,.92],[625,180,1.4],[37,305,1.37],[629,290,1.4]]
+  ];
+  for(const [x,y,size] of (treeGroups[n-1]??treeGroups[5]))seekTree(c,x,y,size);
+  if(forest){
+    path(c,[[332,209],[339,137],[368,137],[390,209]],'#9a755c');
+    oval(c,355,155,14,20,'#5b5142');
+    oval(c,354,134,20,7,'#bd9270');
+    path(c,[[395,385],[445,365],[484,379],[427,399]],'#a77b5d');
+    oval(c,480,380,13,8,'#dfba8a',outline);
+  }
+  if(n===4){
+    for(const [x,y,color] of [[103,159,'#c9837e'],[274,198,'#b98aab'],[476,167,'#d4a66e']]){
+      path(c,[[x-40,y],[x+40,y],[x+37,y+41],[x-37,y+41]],'#b88d62');
+      path(c,[[x-54,y],[x-39,y-55,x+39,y-55,x+54,y]],color);
+      for(const dx of [-27,0,27])oval(c,x+dx,y-13,7,4,'#f6e7be');
+    }
+  }
+  if(n===5){
+    path(c,[[0,227],[144,91,244,177,340,187],[442,197,518,139,660,150],[660,224],[496,184,425,249,319,224],[207,199,99,205,0,258]],'#8db27e',null);
+    for(const [x,y] of [[79,73],[284,72],[553,56]])line(c,[[x,y],[x+18,y-7,x+38,y-7,x+58,y-2]],'#f5edd1',3);
+  }
+  if(n===6){
+    for(const [x,y] of [[145,99],[255,82],[380,109],[493,75],[612,105]]){
+      for(const [dx,dy] of [[-14,7],[10,12],[1,-8]])oval(c,x+dx,y+dy,6,7,'#886087',outline);
+    }
+  }
+  drawSeekLandmark(c,scene.landmark);
+  const nearTarget=(x,y,r)=>scene.targets.some(([,tx,ty])=>Math.hypot(x-tx,y-ty)<r);
+  for(let i=0;i<8+Math.min(n,8)*6;i++){
+    const x=17+(i*113)%623,y=169+(i*59)%236;
+    if(seekDryGround(scene,x,y,27)&&!nearTarget(x,y,27))seekShrub(c,x,y,.35+(i%4)*.15,i%3===0);
+  }
+  for(let i=0;i<38+Math.min(n,9)*24;i++){
+    const x=10+(i*83)%640,y=228+(i*71)%192;
+    if(!seekDryGround(scene,x,y,21)||nearTarget(x,y,15))continue;
+    if(i%7===0){
+      for(const dx of [-7,7])drawTrailFind(c,'mushroom',x+dx,y+dx*.4);
+    }else if(i%7===1){
+      oval(c,x,y,13,6,'#788e7a');oval(c,x-2,y-2,9,3,'#a8b39a');
+    }else if(i%7===2){
+      line(c,[[x-12,y+4],[x+10,y-6]],'#8f7252',3);
+      oval(c,x+4,y-6,7,3,'#c4a46b',null,-.5);
+    }else{
+      line(c,[[x-5,y-8],[x,y],[x+6,y-11]],'#587950',2);
+      if(i%3===0)flower(c,x+6,y-12,4+i%4,['#f5e3a5','#e2aaa4','#fff2d4'][i%3===0?Math.floor(i/3)%3:0]);
+    }
+  }
+  const objectNames=scene.targets.filter(([name])=>!friends[name]).map(([name])=>name);
+  const lookAlikes=[];
+  const itemSize=Math.max(.56,1.07-n*.13);
+  for(const [index,name] of objectNames.entries()){
+    const count=n<4?2:3;
+    for(let attempt=0,placed=0;attempt<140&&placed<count;attempt++){
+      const seed=attempt+index*41+n*27;
+      let x=39+(seed*113)%582, y=236+(seed*71)%167;
+      if(name==='Paper boat'){x=249+(seed*113)%241;y=209+(seed*71)%78;}
+      if(name==='Kite')y=57+(seed*71)%77;
+      if(name==='Paper boat'&&Math.hypot((x-369)/132,(y-245)/51)>1)continue;
+      if(name!=='Kite'&&name!=='Paper boat'&&!seekDryGround(scene,x,y,24))continue;
+      if(nearTarget(x,y,48)||lookAlikes.some(([px,py])=>Math.hypot(x-px,y-py)<40))continue;
+      drawSeekItem(c,name,x,y,itemSize*(seekPropScale[name]??1),(placed+n-1)%3);
+      lookAlikes.push([x,y]);placed++;
+    }
+  }
+  for(const [name,x,y] of scene.targets){
+    const size=itemSize*(friends[name]?1.18:seekPropScale[name]??1);
+    if(friends[name])oval(c,x,y+46*size,19*size,5*size,'#697d5655');
+    drawSeekItem(c,name,x,y,size);
+    if(friends[name]&&seekDryGround(scene,x-22,y+34,25))seekShrub(c,x-22,y+34,.46);
+  }
+}
+function seekThumbnail(name){
+  const canvas=document.createElement('canvas');
+  canvas.width=90;canvas.height=76;canvas.setAttribute('aria-hidden','true');
+  drawSeekItem(canvas.getContext('2d'),name,45,39,.79);
+  return canvas;
+}
+function showSeek(){
+  const scene=seekScenes[seekLevel];
+  seekFound=new Set();
+  $('seekPlace').textContent=scene.name;
+  $('seekStatus').textContent='';
+  $('seekHint').disabled=false;
+  $('seekNext').hidden=true;
+  seekList.replaceChildren();
+  for(const button of seekScene.querySelectorAll('.seekTarget'))button.remove();
+  drawSeekScene(scene);
+  $('seekProgress').textContent='Scene '+(seekLevel+1)+' of '+seekScenes.length+' · 0 of '+scene.targets.length+' found';
+  for(const [name,x,y] of scene.targets){
+    const item=document.createElement('li');
+    const check=document.createElement('span');
+    item.append(seekThumbnail(name),name,check);seekList.append(item);
+    const target=document.createElement('button');
+    target.type='button';target.className='seekTarget';
+    target.style.left=x/660*100+'%';target.style.top=y/430*100+'%';
+    target.setAttribute('aria-label',name);target.setAttribute('aria-pressed','false');
+    target.addEventListener('click',()=>{
+      if(seekFound.has(name))return;
+      seekFound.add(name);
+      target.setAttribute('aria-pressed','true');target.textContent='✓';
+      item.dataset.found='true';check.textContent=' ✓';
+      $('seekProgress').textContent='Scene '+(seekLevel+1)+' of '+seekScenes.length+' · '+seekFound.size+' of '+scene.targets.length+' found';
+      const complete=seekFound.size===scene.targets.length;
+      const last=seekLevel===seekScenes.length-1;
+      $('seekStatus').textContent=complete?(last?'You found everything in all '+seekScenes.length+' scenes!':'You found everything in '+scene.name+'!'):'You found '+name+'!';
+      $('seekHint').disabled=complete;
+      $('seekNext').hidden=!complete;
+      $('seekNext').textContent=last?'Play again':'Next scene →';
+    });
+    seekScene.append(target);
+  }
+}
+$('seekHint').addEventListener('click',()=>{
+  const next=seekScenes[seekLevel].targets.find(([name])=>!seekFound.has(name));
+  if(!next)return;
+  const [name,x,y]=next;
+  const horizontal=x<220?'left side':x>440?'right side':'middle';
+  $('seekStatus').textContent='Look '+(y<170?'high up':y>280?'near the ground':'halfway down')+' on the '+horizontal+' for '+name+'.';
+});
+$('seekNext').addEventListener('click',()=>{
+  if(seekFound.size!==seekScenes[seekLevel].targets.length)return;
+  seekLevel=(seekLevel+1)%seekScenes.length;showSeek();$('seekPlace').focus();
+});
+showSeek();
 </script>
 </body>
 </html>
