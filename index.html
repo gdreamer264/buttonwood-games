@@ -21,6 +21,8 @@
 .cottageCatalog{padding:12px;background:#fffbf2;border:1px solid var(--line);border-radius:16px}.cottageCatalog h2{margin:0 0 8px}.cottageCatalog .gamePicker{padding:0}.cottageItems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,91px),1fr));margin-bottom:0}.cottageItems button{border-radius:12px;line-height:1.2;min-height:70px}.roomPiece[data-kind=dining]{width:33%}.roomPiece[data-kind=bunk],.roomPiece[data-kind=dresser],.roomPiece[data-kind=cupboard]{width:28%}.roomPiece[data-kind=rocker]{width:25%}.roomPiece[data-kind=roundrug],.roomPiece[data-kind=runner]{width:24%;z-index:1}.roomPiece[aria-pressed=true]{z-index:3}
 .postBox.alphabetSlot{background:#ead9b7;border-color:#a98059;box-shadow:inset 0 -5px #c3986d}.postBox.alphabetSlot[data-delivered=true]{background:#f7e2ad}.postBox.alphabetSlot::before{content:"";display:block;width:52%;height:8px;margin:0 auto 9px;background:#594737;border-radius:6px}.postBox.alphabetSlot span{font:700 40px/1 Georgia,serif}.postStamp.alphabetStamp{font-weight:800;font-size:24px;line-height:1}
 .seek{max-width:740px;margin:0 auto 30px}.seekBar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}.seekBar h2{font:700 26px Georgia,serif;margin:0}.seekScene{position:relative;border:2px solid #819678;border-radius:18px;overflow:hidden;background:#dce7ce}.seekScene canvas{display:block;width:100%;height:auto}.seekTarget{position:absolute;transform:translate(-50%,-50%);width:clamp(32px,8%,59px);aspect-ratio:1;border:2px solid transparent;border-radius:50%;background:transparent;touch-action:manipulation}.seekTarget:hover{background:#fff5bc23}.seekTarget[aria-pressed=true]{border-color:#fff2ae;background:#fff2ae35;color:#294a36}.seekList{display:flex;flex-wrap:wrap;gap:7px;list-style:none;padding:0;margin:12px 0}.seekList li{background:#fff8e9;border:1px solid var(--line);border-radius:12px;padding:5px 10px}.seekList li[data-found=true]{background:#dce6d0}.seekList canvas{width:42px;height:auto;vertical-align:middle;margin-right:4px}.seekControls{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.seekStatus{min-height:24px;margin:8px 0}
+.roomPiece[data-kind=loveseat],.roomPiece[data-kind=vanity],.roomPiece[data-kind=sink]{width:29%}.roomPiece[data-kind=pouf],.roomPiece[data-kind=lantern],.roomPiece[data-kind=teaset]{width:17%}.roomPiece[data-kind=quilt]{width:24%}.roomPiece[data-kind=quilt]:not([aria-pressed=true]){z-index:1}.roomPiece[data-kind=wardrobe]{width:27%}
+.roomPiece[data-kind=diningchair],.roomPiece[data-kind=cushionchair]{width:21%}.roomPiece[data-kind=sideboard],.roomPiece[data-kind=daybed]{width:32%}.roomPiece[data-kind=bedside]{width:20%}
 </style>
 </head>
 <body>
@@ -1362,23 +1364,32 @@ startPost();
 const cottageCatalog={
   Seating:[
     ['Armchair','chair','#9cae8a'],['Sofa','sofa','#cc8f83'],
-    ['Window bench','bench','#86a480'],['Rocking chair','rocker','#af795c'],['Footstool','stool','#c296ae']
+    ['Window bench','bench','#86a480'],['Rocking chair','rocker','#af795c'],['Footstool','stool','#c296ae'],
+    ['Tufted loveseat','loveseat','#b08aab'],['Round pouf','pouf','#dcab72'],
+    ['Wooden dining chair','diningchair','#ae794f'],['Cushioned dining chair','cushionchair','#8eaa85']
   ],
   'Tables & kitchen':[
     ['Round table','table','#ba8960'],['Writing desk','desk','#bf9166'],
-    ['Dining table','dining','#aa7953'],['Little stove','stove','#727984'],['Kitchen cupboard','cupboard','#91aa94']
+    ['Dining table','dining','#aa7953'],['Little stove','stove','#727984'],['Kitchen cupboard','cupboard','#91aa94'],
+    ['Kitchen sink','sink','#84aaa8'],['Tea set','teaset','#a18bb6'],
+    ['Sideboard','sideboard','#bd936b'],['Bread board','breadboard','#be9065']
   ],
   'Beds & storage':[
     ['Patchwork bed','bed','#9a8db1'],['Bunk bed','bunk','#80a2ac'],
-    ['Bookcase','shelf','#bf8e66'],['Storage chest','chest','#b87d5a'],['Dresser','dresser','#b98775']
+    ['Bookcase','shelf','#bf8e66'],['Storage chest','chest','#b87d5a'],['Dresser','dresser','#b98775'],
+    ['Standing wardrobe','wardrobe','#9d765d'],['Vanity table','vanity','#c19487'],
+    ['Daybed','daybed','#9aacb1'],['Bedside table','bedside','#a67c61']
   ],
   'Rugs & lights':[
     ['Braided rug','rug','#90a9b4'],['Round rug','roundrug','#cf8f87'],
-    ['Striped runner','runner','#89a275'],['Floor lamp','lamp','#e5bb69'],['Table lamp','tablelamp','#b98cb0']
+    ['Striped runner','runner','#89a275'],['Floor lamp','lamp','#e5bb69'],['Table lamp','tablelamp','#b98cb0'],
+    ['Quilted rug','quilt','#b78793'],['Paper lantern','lantern','#e6b575']
   ],
   Decorations:[
     ['Potted fern','plant','#75986c'],['Flower picture','picture','#ce83a2'],
-    ['Wall clock','clock','#b78262'],['Flower vase','vase','#80a8b6'],['Wall mirror','mirror','#b68e64']
+    ['Wall clock','clock','#b78262'],['Flower vase','vase','#80a8b6'],['Wall mirror','mirror','#b68e64'],
+    ['Acorn garland','garland','#b68a62'],['Rain boots','boots','#709d9b'],
+    ['Woodland wreath','wreath','#789865'],['Wall shelf','wallshelf','#a67c61']
   ]
 };
 const cottageWalls=['#e3e9cf','#f0dfc8','#e9dbd5','#dce9e4','#e9e6c7','#e4dfed'];
@@ -1454,13 +1465,98 @@ function drawCottagePiece(canvas,item){
   const c=canvas.getContext('2d');
   const [,kind,color]=item;
   const rect=(x,y,w,h,fill)=>path(c,[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],fill);
-  if(kind==='chair'||kind==='sofa'){
-    const left=kind==='chair'?29:9, width=120-2*left;
+  if(kind==='diningchair'||kind==='cushionchair'){
+    const wood='#9a6d50';
+    rect(31,10,6,69,wood);rect(73,10,6,69,wood);
+    rect(34,11,43,7,wood);
+    for(const x of [43,54,65])rect(x,18,4,28,wood);
+    path(c,[[31,46],[78,46],[91,55],[44,55]],kind==='cushionchair'?color:'#c79464');
+    rect(43,55,6,25,wood);rect(85,55,6,25,wood);
+    line(c,[[48,68],[85,68]],wood,4);
+  }else if(kind==='sideboard'||kind==='bedside'){
+    const wide=kind==='sideboard', x=wide?11:34, width=120-x*2;
+    rect(x+5,61,6,17,'#8b664d');rect(x+width-11,61,6,17,'#8b664d');
+    rect(x+3,31,width-6,34,color);rect(x,25,width,8,'#c9a176');
+    rect(x+8,38,width-16,11,'#dfb689');oval(c,60,44,4,2,outline);
+    if(wide)line(c,[[60,50],[60,64]],outline,2);
+    else oval(c,60,57,3,2,outline);
+  }else if(kind==='breadboard'){
+    path(c,[[15,53],[89,53],[95,58],[108,58],[108,66],[95,66],[89,73],[15,73]],color);
+    oval(c,52,50,27,15,'#dca05e',outline);
+    for(const x of [42,53,64])line(c,[[x,39],[x+5,46]],'#ffe6b6',3);
+  }else if(kind==='daybed'){
+    rect(12,19,10,58,'#a77958');rect(98,19,10,58,'#a77958');
+    rect(22,29,76,32,'#c89b73');
+    for(const x of [35,51,68,85])line(c,[[x,30],[x,51]],'#9a7054',3);
+    rect(19,49,82,19,color);oval(c,37,48,14,6,'#f5e2c1',outline);
+  }else if(kind==='wreath'){
+    for(let i=0;i<12;i++){
+      const a=i*Math.PI/6;
+      oval(c,60+Math.cos(a)*25,44+Math.sin(a)*25,11,6,i%2?color:'#97aa71',outline,a+.9);
+    }
+    for(const [x,y] of [[36,44],[72,22],[77,62]])oval(c,x,y,4,4,'#b96770');
+  }else if(kind==='wallshelf'){
+    rect(19,56,82,8,color);rect(27,64,6,11,'#84664e');rect(87,64,6,11,'#84664e');
+    for(const [x,h,shade] of [[29,23,'#9b829e'],[39,18,'#86a78b'],[49,25,'#bf7d70']])rect(x,56-h,8,h,shade);
+    oval(c,79,48,11,8,'#a8bbbe',outline);rect(75,38,8,5,'#a8bbbe');
+  }else if(['chair','sofa','loveseat'].includes(kind)){
+    const left=kind==='chair'?29:kind==='loveseat'?17:9, width=120-2*left;
     rect(left+5,64,7,12,'#88664e');rect(left+width-12,64,7,12,'#88664e');
     path(c,[[left,52],[left,19],[left+18,8,left+width-18,8,left+width,19],[left+width,52]],color);
     rect(left-5,43,width+10,23,color);
     line(c,[[left+4,53],[left+width-4,53]],'#fff0dc',3);
     if(kind==='sofa')line(c,[[60,24],[60,49]],outline);
+    if(kind==='loveseat')for(const x of [38,60,82])oval(c,x,32,3,3,'#785c75');
+  }else if(kind==='pouf'){
+    path(c,[[25,68],[19,44,38,30,60,32],[82,30,101,44,95,68],[81,82,39,82,25,68]],color);
+    line(c,[[33,71],[30,57,37,42,52,34]],'#957351',2);
+    line(c,[[86,71],[90,57,83,42,68,34]],'#957351',2);
+  }else if(kind==='sink'){
+    rect(19,41,82,38,color);
+    rect(25,50,32,23,'#c4d7c8');rect(63,50,32,23,'#c4d7c8');
+    oval(c,60,40,45,12,'#f1e7d0',outline);
+    oval(c,60,40,24,7,'#86a6ad',outline);
+    line(c,[[58,36],[58,17],[59,10,72,10,74,21]],'#687e85',4);
+  }else if(kind==='teaset'){
+    oval(c,60,71,49,9,'#e1c59e',outline);
+    oval(c,63,49,23,18,color,outline);
+    oval(c,84,47,10,9,color,outline);oval(c,85,47,5,4,'#fff2d9');
+    path(c,[[44,44],[27,32],[34,51],[45,55]],color);
+    oval(c,63,33,15,4,'#e1bdcf',outline);oval(c,63,27,4,4,outline);
+    rect(19,56,15,13,color);rect(89,56,15,13,color);
+  }else if(kind==='wardrobe'){
+    rect(23,14,74,66,color);
+    path(c,[[19,15],[32,6],[88,6],[101,15]],'#c19a70');
+    rect(28,22,29,51,'#d0a883');rect(63,22,29,51,'#d0a883');
+    oval(c,51,49,3,4,'#85654d');oval(c,69,49,3,4,'#85654d');
+  }else if(kind==='vanity'){
+    rect(23,55,8,23,'#956f51');rect(89,55,8,23,'#956f51');
+    oval(c,60,27,25,22,color,outline);oval(c,60,27,19,16,'#dce9e3',outline);
+    rect(16,50,88,12,color);rect(37,62,46,11,color);
+    oval(c,60,67,4,2,outline);
+  }else if(kind==='quilt'){
+    rect(11,19,98,53,'#f1d8ae');
+    const colors=[color,'#dfbd8b','#97aaa0'];
+    for(let row=0;row<3;row++)for(let col=0;col<6;col++){
+      const x=15+col*15,y=23+row*15;
+      path(c,[[x,y],[x+14,y],[x,y+14]],colors[(row+col)%3],null);
+      path(c,[[x+14,y],[x+14,y+14],[x,y+14]],colors[(row+col+1)%3],null);
+    }
+  }else if(kind==='lantern'){
+    line(c,[[60,9],[60,26]],outline,3);
+    oval(c,60,48,30,23,color,outline);
+    for(const y of [36,48,60])line(c,[[35,y],[85,y]],'#a77856',2);
+    rect(50,69,20,6,'#b58062');
+  }else if(kind==='garland'){
+    line(c,[[10,24],[40,59,80,59,110,24]],'#7b7458',3);
+    for(const [x,y] of [[24,36],[42,47],[60,51],[78,47],[96,36]]){
+      oval(c,x,y+8,6,8,color,outline);oval(c,x,y+4,7,3,'#83634e',outline);
+    }
+  }else if(kind==='boots'){
+    for(const x of [29,62]){
+      path(c,[[x,30],[x+19,30],[x+19,56],[x+30,58,x+32,64,x+30,70],[x,70]],color);
+      line(c,[[x,65],[x+30,65]],'#d6e3c2',3);
+    }
   }else if(kind==='dining'||kind==='stool'){
     const x=kind==='dining'?12:27, w=120-x*2, y=kind==='dining'?30:44;
     rect(x+6,y+12,9,77-y-12,'#987052');rect(x+w-15,y+12,9,77-y-12,'#987052');
@@ -1593,7 +1689,7 @@ function addCottagePiece(item){
   button.append(cottageCanvas(item));
   const piece={button,label};
   layout.push(piece);cottageRoom.append(button);
-  const height=['picture','clock','mirror'].includes(kind)?36:['rug','roundrug','runner'].includes(kind)?76:64;
+  const height=['picture','clock','mirror','garland','lantern','wreath','wallshelf'].includes(kind)?36:['rug','roundrug','runner','quilt'].includes(kind)?76:64;
   positionCottagePiece(piece,34+(layout.length-1)%5*8,height);
   selectCottagePiece(piece);
   $('cottageStatus').textContent=label+' added.';
