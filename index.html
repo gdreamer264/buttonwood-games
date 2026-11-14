@@ -12,6 +12,14 @@
 .matchBar{flex-wrap:wrap}.difficultyButtons{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.difficultyButtons button[aria-pressed=true]{background:var(--green);color:#fff9e9;border-color:var(--green)}.matchCard canvas{display:block;width:min(100%,70px);height:auto}.matchCard[data-state=closed] canvas,.matchCard[data-state]:not([data-state=closed]) .cardBack{display:none}
 .book{max-width:660px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;overflow:hidden}.book canvas{display:block;width:100%;height:auto;background:#e5ead7}.bookPage{padding:clamp(12px,4vw,24px)}.bookText{display:block;width:100%;background:#f4ebd6;border:0;border-radius:15px;padding:15px;font:700 clamp(23px,5vw,36px)/1.45 Georgia,serif}.bookText .readingWord{background:#f9d779;border-radius:4px;box-decoration-break:clone}.bookControls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-top:12px}.bookControls button:disabled{opacity:.5;cursor:default}.bookControls .primary{flex:none}.bookStatus{margin:7px 0 0;min-height:22px;font-size:14px}
 .mathTrail{max-width:660px;margin:0 auto 28px;background:#fffbf2;border:1px solid var(--line);border-radius:26px;box-shadow:0 5px 0 #e9deca;overflow:hidden}.mathTrail canvas{display:block;width:100%;height:auto;background:#e5ead7}.mathBody{padding:clamp(14px,4vw,24px);text-align:center}.mathCount{color:var(--muted);font-size:14px;margin:0}.mathQuestion{font:700 clamp(21px,4vw,29px)/1.3 Georgia,serif;margin:9px 0}.mathEquation{font-size:25px;margin:6px}.mathAnswers{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:12px 0}.mathAnswers button{min-width:64px;min-height:48px;font-size:22px}.mathAnswers button[aria-disabled=true]{cursor:default}.mathAnswers button.correct{background:#dce6d0;border-color:var(--green)}.mathStatus{min-height:24px;margin:8px 0}.mathBody .primary{padding-inline:22px}
+.bookShelf{margin:0 auto 16px;max-width:660px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.bookShelf [aria-pressed=true]{background:var(--green);color:#fff9e9}.bookHeading{font:700 clamp(24px,5vw,36px) Georgia,serif;margin:0 0 14px;text-align:center}
+.postDesk{max-width:660px;margin:0 auto 28px;padding:clamp(12px,4vw,24px);text-align:center;background:#fffbf2;border:1px solid var(--line);border-radius:24px;box-shadow:0 5px 0 #e9deca}.postLetter{max-width:400px;margin:16px auto;padding:18px;background:#fff5d9;border:2px dashed #a97458;border-radius:12px}.postLetter p{margin:5px 0}.postLetter strong{display:block;font:700 clamp(25px,5vw,34px) Georgia,serif}.postBoxes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.postBox{min-width:0;min-height:100px;padding:8px 3px;border:2px solid #879878;border-radius:18px 18px 9px 9px;background:#e6edd8;overflow-wrap:anywhere}.postBox canvas{display:block;width:min(64px,100%);height:auto;margin:auto}.postBox[data-delivered=true]{background:#f7e2ad;border-color:#9a6e42}.postBox span{display:block;font-size:clamp(12px,2.7vw,16px)}.postDesk .gamePicker{padding:0}.postFeedback{min-height:24px}
+.postScene{position:relative;max-width:400px;margin:12px auto 0}.postScene svg{display:block;width:100%;height:auto}.postFlag{transform-origin:255px 90px;transform-box:view-box;transform:rotate(-64deg)}.postScene[data-sent=true] .postFlag{transform:rotate(0);transition:transform .4s ease-out}.postDoor{transform-origin:118px 93px;transform-box:view-box}.postScene[data-sent=true] .postDoor{animation:post-door .8s ease-in-out}.postLetter{position:relative;min-height:132px;padding:34px 58px 27px 18px;border:1px solid #c6ad87;background:repeating-linear-gradient(135deg,#ad6861 0 10px,#fff4d8 10px 20px,#6f8a95 20px 30px,#fff4d8 30px 40px);isolation:isolate}.postLetter::before{content:"";position:absolute;inset:5px;border-radius:7px;background:#fffaeb;z-index:-1}.postSender{position:absolute;left:15px;top:9px;color:#655842;font-size:11px}.postStamp{position:absolute;right:14px;top:13px;background:#dce6d0;border:2px dotted #63806a;padding:3px 7px;font-size:19px}.postLetter.done{opacity:.63}.postParcel{position:fixed;top:0;left:0;z-index:10;display:grid;place-items:center;width:50px;height:33px;background:#fff5d9;border:2px solid #9a6e42;border-radius:4px;color:#784f38;pointer-events:none}.postBox[data-delivered=true]{animation:post-land .38s ease-out}@keyframes post-door{50%{transform:scaleX(.22)}}@keyframes post-land{35%{transform:translateY(-5px)}}@media(prefers-reduced-motion:reduce){.postScene[data-sent=true] .postDoor,.postBox[data-delivered=true]{animation:none}.postScene[data-sent=true] .postFlag{transition:none}}
+.cottage{max-width:680px;margin:0 auto 32px}.cottageRoom{position:relative;isolation:isolate;aspect-ratio:1.65;overflow:hidden;border:2px solid #967356;border-radius:20px;background:linear-gradient(0deg,#dbb584 0 42%,var(--wall,#e3e9cf) 42%);touch-action:manipulation}.cottageRoom::before{content:"";position:absolute;inset:58% 0 0;background:repeating-linear-gradient(0deg,transparent 0 19px,#a97e5940 19px 21px);border-top:5px solid #a47b5e;z-index:-1}.roomPiece{position:absolute;transform:translate(-50%,-50%);border:2px solid transparent;border-radius:9px;background:transparent;padding:0;touch-action:none;width:clamp(40px,15%,96px);aspect-ratio:1.3}.roomPiece[data-kind=rug]{z-index:1;width:clamp(52px,24%,150px)}.roomPiece:not([data-kind=rug]){z-index:2}.roomPiece[aria-pressed=true]{border-color:#355a46;background:#fff6de55;z-index:3}.roomPiece canvas,.cottageItems canvas{display:block;width:100%;height:auto;pointer-events:none}.cottageItems,.cottageTools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}.cottageItems button{flex:0 1 95px;padding:4px 7px}.cottageItems canvas{max-width:65px;margin:auto}.cottageTools button{min-width:42px}.cottageTools button:disabled{opacity:.5;cursor:default}.cottageStatus{text-align:center;min-height:22px;margin:7px 0}.cottage h2{text-align:center;font:700 24px Georgia,serif;margin:14px 0 8px}
+.roomPiece[data-kind=chair]{width:25%}.roomPiece[data-kind=sofa]{width:34%}.roomPiece[data-kind=table]{width:27%}.roomPiece[data-kind=lamp]{width:24%}.roomPiece[data-kind=shelf]{width:29%}.roomPiece[data-kind=bed]{width:34%}.roomPiece[data-kind=desk]{width:29%}.roomPiece[data-kind=chest]{width:25%}.roomPiece[data-kind=bench]{width:27%}.roomPiece[data-kind=stove]{width:25%}.roomPiece[data-kind=clock]{width:17%}
+.cottageArchitecture{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.cottageCatalog{padding:12px;background:#fffbf2;border:1px solid var(--line);border-radius:16px}.cottageCatalog h2{margin:0 0 8px}.cottageCatalog .gamePicker{padding:0}.cottageItems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,91px),1fr));margin-bottom:0}.cottageItems button{border-radius:12px;line-height:1.2;min-height:70px}.roomPiece[data-kind=dining]{width:33%}.roomPiece[data-kind=bunk],.roomPiece[data-kind=dresser],.roomPiece[data-kind=cupboard]{width:28%}.roomPiece[data-kind=rocker]{width:25%}.roomPiece[data-kind=roundrug],.roomPiece[data-kind=runner]{width:24%;z-index:1}.roomPiece[aria-pressed=true]{z-index:3}
+.postBox.alphabetSlot{background:#ead9b7;border-color:#a98059;box-shadow:inset 0 -5px #c3986d}.postBox.alphabetSlot[data-delivered=true]{background:#f7e2ad}.postBox.alphabetSlot::before{content:"";display:block;width:52%;height:8px;margin:0 auto 9px;background:#594737;border-radius:6px}.postBox.alphabetSlot span{font:700 40px/1 Georgia,serif}.postStamp.alphabetStamp{font-weight:800;font-size:24px;line-height:1}
 </style>
 </head>
 <body>
@@ -20,8 +28,10 @@
 <nav class="gamePicker" aria-label="Choose a game">
 <button class="quiet" data-game="dress" aria-controls="dressGame" aria-pressed="true">Dress-Up</button>
 <button class="quiet" data-game="match" aria-controls="matchGame" aria-pressed="false">Woodland Match</button>
-<button class="quiet" data-game="book" aria-controls="bookGame" aria-pressed="false">Picnic Read-Along</button>
+<button class="quiet" data-game="book" aria-controls="bookGame" aria-pressed="false">Read-Along</button>
 <button class="quiet" data-game="math" aria-controls="mathGame" aria-pressed="false">Acorn Trail Math</button>
+<button class="quiet" data-game="post" aria-controls="postGame" aria-pressed="false">Buttonwood Post Office</button>
+<button class="quiet" data-game="cottage" aria-controls="cottageGame" aria-pressed="false">Cozy Cottage</button>
 </nav>
 <section id="dressGame" aria-labelledby="dressTitle">
 <div class="intro"><h1 id="dressTitle">Buttonwood Dress-Up</h1><p>Dress a woodland friend and see where their outfit takes them.</p></div>
@@ -55,10 +65,12 @@
 </div>
 </section>
 <section id="bookGame" aria-labelledby="bookTitle" hidden>
-<div class="intro"><h1 id="bookTitle">A Picnic for Six</h1><p>Tap the words or press Read to hear each page.</p></div>
+<div class="intro"><h1 id="bookTitle">Buttonwood Read-Along</h1><p>Pick a book. Tap the words or press Read to hear each page.</p></div>
+<div class="bookShelf" id="bookShelf" role="group" aria-label="Choose a book"></div>
 <div class="book">
 <canvas id="bookArt" width="660" height="270" role="img"></canvas>
 <div class="bookPage">
+<h2 class="bookHeading" id="storyTitle"></h2>
 <button class="bookText" type="button" id="bookText"></button>
 <div class="bookControls">
 <button class="quiet" type="button" id="bookBack">← Back</button>
@@ -83,6 +95,46 @@
 <p class="mathStatus" id="mathStatus" role="status"></p>
 <button class="primary" id="mathNext" type="button" hidden>Next problem →</button>
 </div>
+</div>
+</section>
+<section id="postGame" aria-labelledby="postTitle" hidden>
+<div class="intro"><h1 id="postTitle">Buttonwood Post Office</h1><p>Pick a route and deliver five letters to your woodland friends.</p></div>
+<div class="postDesk">
+<div class="gamePicker" id="postModes" role="group" aria-label="Choose a delivery route"></div>
+<p id="postCount"></p>
+<div class="postScene" id="postScene">
+<svg viewBox="0 0 360 124" role="img" aria-label="Buttonwood Post Office with a red mail flag">
+<rect width="360" height="124" rx="17" fill="#e6edd8"/><path d="M0 100Q90 75 177 102T360 96V124H0Z" fill="#bdcfa7"/>
+<path d="M28 112L44 79L60 112M301 111L318 76L335 111" fill="#7c9c73"/>
+<path d="M89 48H228V111H89Z" fill="#f0d9af" stroke="#765c46" stroke-width="2"/><path d="M78 49L108 16H211L239 49Z" fill="#ac6d5d" stroke="#765c46" stroke-width="2"/>
+<rect x="112" y="50" width="94" height="19" rx="3" fill="#fff4d8"/><text x="159" y="64" text-anchor="middle" fill="#405643" font-family="Georgia,serif" font-size="12" font-weight="bold">POST OFFICE</text>
+<rect x="118" y="77" width="29" height="34" fill="#564838"/><g class="postDoor"><rect x="118" y="77" width="29" height="34" rx="2" fill="#8f6550"/><circle cx="141" cy="95" r="2" fill="#f3d184"/></g>
+<rect x="172" y="78" width="37" height="20" rx="3" fill="#9dbcc1" stroke="#765c46" stroke-width="2"/><path d="M190 78V98" stroke="#765c46" stroke-width="2"/>
+<path d="M259 92V115" stroke="#765c46" stroke-width="5"/><rect x="242" y="78" width="41" height="21" rx="6" fill="#638577"/><path d="M247 88H260" stroke="#31483b" stroke-width="3"/>
+<path class="postFlag" d="M255 90V64H274V74H255" fill="#bd5f52" stroke="#8b4c42" stroke-width="2"/>
+</svg>
+</div>
+<div class="postLetter" id="postLetter"><span class="postSender">From Buttonwood Post Office</span><span class="postStamp" id="postStamp" aria-hidden="true">✿</span><p id="postPrompt"></p><strong id="postClue" tabindex="-1"></strong></div>
+<div class="postBoxes" id="postBoxes" role="group" aria-label="Choose a mailbox"></div>
+<p class="postFeedback" id="postFeedback" role="status"></p>
+<button class="primary" type="button" id="postNext" hidden>Next letter →</button>
+</div>
+</section>
+<section id="cottageGame" aria-labelledby="cottageTitle" hidden>
+<div class="intro"><h1 id="cottageTitle">Cozy Cottage</h1><p>Pick a friend, add a piece, then drag it or use the arrows to move it.</p></div>
+<div class="cottage">
+<div class="gamePicker" id="cottageFriends" role="group" aria-label="Choose a home"></div>
+<h2 id="cottageHome"></h2>
+<div class="cottageRoom" id="cottageRoom" role="group" aria-labelledby="cottageHome"><canvas class="cottageArchitecture" id="cottageArchitecture" width="660" height="400" role="img"></canvas></div>
+<div class="cottageTools" id="cottageTools" role="group" aria-label="Move or remove selected piece">
+<button type="button" class="quiet" data-move="-1,0" aria-label="Move left">←</button><button type="button" class="quiet" data-move="0,-1" aria-label="Move up">↑</button><button type="button" class="quiet" data-move="0,1" aria-label="Move down">↓</button><button type="button" class="quiet" data-move="1,0" aria-label="Move right">→</button><button type="button" class="quiet" id="cottageRemove">Remove piece</button>
+</div>
+<section class="cottageCatalog" aria-labelledby="cottageCatalogTitle">
+<h2 id="cottageCatalogTitle">Furniture &amp; decor</h2>
+<div class="gamePicker" id="cottageCategories" role="group" aria-label="Furniture categories"></div>
+<div class="cottageItems" id="cottageItems" role="group" aria-label="Add a piece"></div>
+</section>
+<p class="cottageStatus" id="cottageStatus" role="status"></p>
 </div>
 </section>
 </main>
@@ -707,15 +759,70 @@ for(const button of gameButtons){
 }
 newMatch();
 
-const bookPages=[
+const picnicPages=[
   {text:'“Let’s have a picnic!” says Pip.',cast:['Pip'],object:'basket',alt:'Pip with a picnic basket'},
   {text:'Maple has a mat. “Sit with me,” says Maple.',cast:['Maple','Pip'],object:'mat',alt:'Maple and Pip with a picnic mat'},
-  {text:'Clover has jam. Pebble has bread.',cast:['Clover','Pebble'],object:'food',alt:'Clover and Pebble with jam and bread'},
-  {text:'Fern has plums. Hazel has cups.',cast:['Fern','Hazel'],object:'cups',alt:'Fern and Hazel with plums and cups'},
+  {text:'Clover brings jam, and Pebble brings bread.',cast:['Clover','Pebble'],object:'food',alt:'Clover and Pebble with jam and bread'},
+  {text:'Fern brings plums, and Hazel brings cups.',cast:['Fern','Hazel'],object:'cups',alt:'Fern and Hazel with plums and cups'},
   {text:'Drip, drop! “Come sit under the tree,” says Pip.',cast:['Pip','Maple','Clover','Pebble','Fern','Hazel'],object:'rain',alt:'All six friends sheltering under a tree'},
-  {text:'The sun is back. We eat. We laugh. We share.',cast:['Pip','Maple','Clover','Pebble','Fern','Hazel'],object:'picnic',alt:'All six friends sharing a sunny picnic'}
+  {text:'The rain is gone. We sit on the mat and eat bread and jam.',cast:['Pip','Maple','Clover','Pebble','Fern','Hazel'],object:'picnic',alt:'All six friends gathered around bread, jam, and plums on a picnic mat'}
 ];
-let bookPage=0, reading=null;
+const characterBooks=[
+  {title:'Pip Finds a Boot',friend:'Pip',clothes:'coat',hat:'rainhat',extra:'umbrella',pages:[
+    ['Pip puts on his raincoat at Clover Burrow.','burrow'],
+    ['At the puddle parade, Pip sees a red boot.','puddles'],
+    ['Pip takes the boot to the Buttonwood Post Office.','post'],
+    ['“My boot!” says Pebble. Pip is glad he could help.','post','Pebble']
+  ]},
+  {title:'Maple Makes a Map',friend:'Maple',clothes:'jumper',hat:'beret',extra:'flag',pages:[
+    ['“Can you help me find the big oak?” asks Hazel. Maple gets a pen.','den','Hazel'],
+    ['Maple draws a bridge. “Cross here,” she says.','brook'],
+    ['She draws a big oak. “Look for my red flag,” she says.','oak'],
+    ['Hazel follows the map and finds Maple by the flag. “You found me!” she says.','oak','Hazel']
+  ]},
+  {title:'Clover Grows a Gift',friend:'Clover',clothes:'overalls',hat:'crown',extra:'can',pages:[
+    ['Clover plants a seed in the sleepy garden.','garden'],
+    ['Clover gives it a drink each day.','garden'],
+    ['One day, a pink flower pops up.','bloom'],
+    ['Clover takes the flower to Thimble Nook. “This is for you,” Clover tells Pebble.','nook','Pebble']
+  ]},
+  {title:'Pebble Tries Again',friend:'Pebble',clothes:'shirt',hat:'cloud',extra:'kite',pages:[
+    ['At Thimble Nook, Pebble gets a kite.','nook'],
+    ['Pebble runs, but the kite falls.','hill'],
+    ['“Try up here,” says Maple. A breeze lifts the kite.','hill','Maple'],
+    ['Up it goes! Pebble grins and holds on tight.','highHill']
+  ]},
+  {title:'Fern Shares the Plums',friend:'Fern',clothes:'picnic',hat:'sunhat',extra:'basket',pages:[
+    ['Fern picks plums at Sunpatch Orchard.','orchard'],
+    ['She takes a full basket to the Mushroom Market.','market'],
+    ['“Would you like a plum?” she asks Clover.','market','Clover'],
+    ['They sit in the shade and eat the last two plums.','orchard','Clover']
+  ]},
+  {title:'Hazel Lights the Way',friend:'Hazel',clothes:'sweater',hat:'mooncap',extra:'lantern',pages:[
+    ['Hazel lights a lamp at Treetop Hollow.','hollow'],
+    ['On a starlight stroll, Hazel sees Pip by the path.','stars','Pip'],
+    ['“I can help,” says Hazel. She holds the lamp up high.','stars','Pip'],
+    ['They see the gate at Clover Burrow. “I am home!” says Pip.','burrow','Pip']
+  ]}
+];
+const storyPlaces={burrow:'Clover Burrow',puddles:'the puddle parade',post:'the Buttonwood Post Office',den:'Fernbank Den',brook:'Pebble Brook',oak:'Leaf Trail',garden:'the sleepy garden',bloom:'the sleepy garden',hill:'Kite Hill',highHill:'Kite Hill',nook:'Thimble Nook',orchard:'Sunpatch Orchard',market:'the Mushroom Market',hollow:'Treetop Hollow',stars:'the starlight path'};
+const books=[{title:'A Picnic for Six',pages:picnicPages},...characterBooks.map(book=>({
+  title:book.title,
+  pages:book.pages.map(([text,setting,guest])=>({
+    text,setting,guest,book,alt:book.friend+(guest?' and '+guest:'')+' at '+storyPlaces[setting]
+  }))
+}))];
+const storyOutfits=new Map(characterBooks.map(({friend,clothes,hat})=>[friend,{
+  clothes:categories.Clothes.find(item=>item[1]===clothes),
+  hat:categories.Hats.find(item=>item[1]===hat)
+}]));
+function drawStoryFriend(c,name){
+  const doll=friends[name];
+  const {clothes,hat}=storyOutfits.get(name);
+  drawFriend(c,doll,clothes);
+  c.save();c.translate(280,doll.hatY);c.scale(.96,.83);garment(c,hat);c.restore();
+}
+let activeBook=books[0], bookPage=0, reading=null;
 const bookText=$('bookText');
 const voice=window.speechSynthesis;
 const canRead=!!voice&&typeof SpeechSynthesisUtterance==='function';
@@ -725,6 +832,7 @@ function drawBookPage(page){
   const canvas=$('bookArt');
   canvas.setAttribute('aria-label',page.alt);
   const c=canvas.getContext('2d');
+  if(page.book){drawCharacterPage(c,page);return;}
   const rain=page.object==='rain';
   c.fillStyle=rain?'#d9e6e5':'#e9edd7';c.fillRect(0,0,660,270);
   if(!rain)oval(c,551,65,29,29,'#f6d487');
@@ -735,29 +843,178 @@ function drawBookPage(page){
     for(const x of [190,266,344,422,490])oval(c,x,52,93,42,'#7eaa80');
     for(let i=0;i<18;i++){const x=14+i*36,y=65+(i*29)%120;if(x<130||x>530)line(c,[[x,y],[x-4,y+9]],'#78a4b1',2);}
   }
-  const group=page.cast.length>2;
-  for(const [index,name] of page.cast.entries()){
+  if(page.object==='picnic'){
+    drawPicnicEnding(c,page.cast);
+    return;
+  }
+  const cast=page.cast;
+  const group=cast.length>2;
+  for(const [index,name] of cast.entries()){
     const x=group?82+index*96:page.cast.length===1?278:225+index*150;
     const scale=group?.36:.49;
     c.save();c.translate(x,208);c.scale(scale,scale);c.translate(-280,-441);
-    drawFriend(c,friends[name]);c.restore();
+    drawStoryFriend(c,name);c.restore();
   }
-  if(['mat','food','cups','picnic'].includes(page.object)){
+  if(['mat','food','cups'].includes(page.object)){
     path(c,[[204,209],[443,209],[468,255],[182,255]],'#d99487');
     for(const y of [220,237,249])line(c,[[193,y],[452,y]],'#f7ded0',3);
   }
   if(page.object==='basket'){
     c.save();c.translate(411,208);garment(c,categories.Extras[3]);c.restore();
   }
-  if(page.object==='food'||page.object==='picnic'){
+  if(page.object==='food'){
     oval(c,304,229,32,12,'#efc17e',outline);
     path(c,[[351,218],[378,218],[380,244],[349,244]],'#b36175');
     line(c,[[349,218],[380,218]],'#f5e5cd',5);
   }
-  if(page.object==='cups'||page.object==='picnic'){
+  if(page.object==='cups'){
     for(const x of [224,245,266])oval(c,x,230,9,8,'#a17198',outline);
     for(const x of [397,422])path(c,[[x-9,219],[x+9,219],[x+6,240],[x-6,240]],'#f5d68e');
   }
+}
+function drawCharacterPage(c,page){
+  const {setting,book,guest}=page;
+  const night=setting==='hollow'||setting==='stars'||(setting==='burrow'&&book.friend==='Hazel');
+  c.fillStyle=night?'#30495e':'#e6edda';c.fillRect(0,0,660,270);
+  oval(c,552,58,26,26,night?'#fff0be':'#f6d487');
+  path(c,[[0,163],[150,107,245,190,372,156],[489,125,566,148,660,136],[660,270],[0,270]],night?'#486769':'#aec59b',null);
+  oval(c,351,245,235,18,night?'#39595a':'#c3d3a7');
+  if(night)for(const [x,y] of [[52,56],[128,36],[226,72],[349,54],[465,83],[612,103]])star(c,x,y,5,'#fff0be');
+  if(setting==='den'){
+    path(c,[[45,219],[79,131],[166,100],[245,141],[260,223]],'#a38d79');
+    path(c,[[96,210],[96,179],[96,141,156,138,165,179],[165,210]],'#664d43');
+    for(const [x,y] of [[60,210],[81,226],[207,199],[230,220]]){
+      line(c,[[x,y],[x,y-34]],'#496e55',3);
+      for(const dy of [9,17,25]){
+        oval(c,x-6,y-dy,8,3,'#6d9461',null,.45);
+        oval(c,x+6,y-dy,8,3,'#6d9461',null,-.45);
+      }
+    }
+  }
+  if(setting==='nook'){
+    path(c,[[58,224],[64,135],[222,135],[230,224]],'#d7ad7b');
+    path(c,[[43,140],[143,55],[244,140]],'#6b8c80');
+    line(c,[[60,136],[143,67],[226,136]],'#a9bf99',5);
+    oval(c,143,106,20,19,'#efdb9e',outline);
+    line(c,[[143,90],[143,122]],'#8d674e',3);
+    line(c,[[127,106],[159,106]],'#8d674e',3);
+    for(const y of [155,177,199])line(c,[[64,y],[222,y]],'#ad825c',2);
+    oval(c,123,187,29,35,'#9d7357',outline);
+    oval(c,135,190,3,3,'#f5d486');
+    path(c,[[92,225],[154,225],[161,233],[85,233]],'#b38b65');
+    for(const y of [158,176,194,212])line(c,[[183,y],[207,y]],'#a07858',4);
+    for(const x of [183,207])line(c,[[x,149],[x,224]],'#805e48',4);
+  }
+  if(['burrow','hollow','oak'].includes(setting)){
+    if(setting==='burrow')oval(c,152,180,109,59,'#839f70');
+    else{
+      path(c,[[101,232],[121,91],[181,91],[201,232]],'#96715d');
+      for(const [x,y] of [[98,92],[161,64],[209,93]])oval(c,x,y,53,40,'#6e966f');
+    }
+    if(setting!=='oak'){
+      const y=setting==='hollow'?137:180;
+      path(c,[[125,y+46],[125,y+12],[125,y-12,177,y-12,177,y+12],[177,y+46]],'#bd885d');
+      oval(c,163,y+26,4,4,'#f5d486');
+    }
+  }
+  if(setting==='post'||setting==='market'){
+    path(c,[[63,133],[238,133],[238,225],[63,225]],'#efdab5');
+    path(c,[[46,134],[81,92],[220,92],[255,134]],setting==='post'?'#a56659':'#b77890');
+    path(c,[[78,150],[214,150],[214,183],[78,183]],'#fff6df');
+    c.fillStyle=outline;c.font='bold 17px Georgia';c.fillText(setting==='post'?'POST OFFICE':'MARKET',setting==='post'?91:108,172);
+    if(setting==='post'){
+      path(c,[[93,198],[134,198],[134,220],[93,220]],'#e8edf0');
+      line(c,[[93,198],[114,212],[134,198]]);
+    }else for(const x of [106,146,186])oval(c,x,201,12,8,'#b76679');
+  }
+  if(setting==='puddles'){
+    oval(c,127,213,98,24,'#8cbac4');
+    for(const x of [66,113,160])oval(c,x,213,16,3,'#bbd9d9');
+  }
+  if(setting==='brook'){
+    path(c,[[89,148],[150,171,106,213,56,270],[244,270],[211,224,259,167,177,137]],'#80b6c6',null);
+    for(const [x,y] of [[115,247],[162,193],[152,159]])line(c,[[x,y],[x+20,y-4],[x+36,y]],'#d0e9e7',2);
+    path(c,[[54,211],[117,161,203,157,273,187],[273,201],[204,169,118,176,54,224]],'#b78055');
+    for(const [x,y] of [[68,200],[119,175],[171,166],[224,171],[259,181]])line(c,[[x,y],[x,y-21]],outline,3);
+    line(c,[[68,179],[129,138,194,134,259,160]],'#8e5f42',5);
+  }
+  if(book.friend==='Maple'&&setting==='oak'){
+    line(c,[[209,205],[209,145]],outline,4);
+    path(c,[[209,146],[245,155],[209,169]],'#b95551');
+  }
+  if(book.friend==='Pip'&&setting!=='burrow'){
+    path(c,[[260,194],[277,194],[277,216],[288,216,293,219,291,228],[260,228]],'#b85e57');
+    line(c,[[260,223],[289,223]],'#f8d5ab',3);
+  }
+  if(['garden','bloom','orchard'].includes(setting)){
+    for(const x of [68,116,164,212]){
+      line(c,[[x,221],[x,188]],'#66845b',4);
+      if(setting!=='garden')flower(c,x,184,11,'#d584a0');
+      else oval(c,x+5,198,9,5,'#648a62',null,-.4);
+    }
+    if(setting==='orchard'){
+      line(c,[[140,182],[140,90]],'#92694f',13);
+      oval(c,140,95,72,40,'#759461');
+      for(const x of [101,137,170])oval(c,x,102,7,8,'#92618f');
+    }
+  }
+  if(setting==='hill'||setting==='highHill'){
+    path(c,[[0,196],[98,106,170,112,262,175],[354,238,467,236,660,219],[660,270],[0,270]],'#8dae82',null);
+    const fallen=page.text.includes('falls');
+    const kiteY=setting==='highHill'?42:fallen?212:92;
+    line(c,fallen?[[150,kiteY],[205,253,275,245,344,202]]:[[150,kiteY],[198,kiteY+47,251,187,344,202]],'#594737',2);
+    c.save();c.translate(150,kiteY);c.rotate(fallen?1:0);c.scale(.66,.66);garment(c,categories.Extras.find(item=>item[1]==='kite'));c.restore();
+  }
+  if(guest){
+    c.save();c.translate(531,235);c.scale(.43,.43);c.translate(-280,-441);drawStoryFriend(c,guest);c.restore();
+  }
+  c.save();c.translate(367,237);c.scale(.53,.53);c.translate(-280,-441);
+  drawStoryFriend(c,book.friend);
+  if(book.friend==='Clover'&&setting==='nook'){
+    line(c,[[374,383],[393,347]],'#538061',5);
+    oval(c,382,368,10,5,'#79a184',null,-.5);
+    flower(c,393,347,14,'#d584a0');
+  }else if(book.friend==='Pebble'&&setting==='nook'){
+    line(c,[[379,368],[374,391,345,399,327,375]],'#594737',4);
+    c.translate(379,368);c.scale(.78,.78);garment(c,categories.Extras.find(item=>item[1]==='kite'));
+  }else if(setting!=='hill'&&setting!=='highHill'&&book.friend!=='Maple'){
+    c.translate(379,368);c.scale(.78,.78);garment(c,categories.Extras.find(item=>item[1]===book.extra));
+  }
+  c.restore();
+  if(book.friend==='Maple'){
+    const mapX=guest&&setting==='oak'?518:364;
+    path(c,[[mapX-27,210],[mapX+25,204],[mapX+31,232],[mapX-24,239]],'#fff1d3');
+    if(setting==='den'){
+      line(c,[[mapX+14,223],[mapX+26,200]],'#ad7351',5);
+    }else{
+      line(c,[[mapX-16,230],[mapX-3,220],[mapX+9,226],[mapX+19,213]],'#9a7055',2);
+      line(c,[[mapX-11,214],[mapX-6,233]],'#80b6c6',3);
+      line(c,[[mapX-15,224],[mapX-3,221]],'#9a7055',3);
+      if(setting==='oak')oval(c,mapX+19,213,5,4,'#6e966f');
+    }
+  }
+}
+function drawPicnicEnding(c,cast){
+  path(c,[[170,137],[490,137],[570,252],[90,252]],'#d99487');
+  for(const y of [151,178,206,235])line(c,[[170-(y-137)*.69,y],[490+(y-137)*.69,y]],'#f7ded0',3);
+  for(const x of [218,274,330,386,442])line(c,[[x,138],[330+(x-330)*1.45,251]],'#f7ded0',3);
+
+  const seats=[[220,168],[330,154],[440,168],[130,236],[330,252],[530,236]];
+  const drawGuest=index=>{
+    const [x,y]=seats[index];
+    c.save();c.translate(x,y);c.scale(.31,.27);c.translate(-280,-441);
+    drawStoryFriend(c,cast[index]);c.restore();
+  };
+  for(const index of [0,1,2])drawGuest(index);
+  oval(c,230,198,32,15,'#fff3d8',outline);
+  oval(c,225,194,16,9,'#efc17e',outline);
+  oval(c,238,200,15,8,'#dba568',outline);
+  path(c,[[272,179],[289,179],[291,198],[270,198]],'#b36175');
+  line(c,[[271,179],[290,179]],'#f5e5cd',4);
+  oval(c,426,197,28,14,'#fff3d8',outline);
+  for(const [x,y] of [[414,197],[425,190],[437,198]])oval(c,x,y,7,7,'#a17198',outline);
+  for(const [x,y] of [[467,183],[473,210]])path(c,[[x-6,y-7],[x+6,y-7],[x+4,y+7],[x-4,y+7]],'#f5d68e');
+  for(const index of [3,4,5])drawGuest(index);
 }
 function stopReading(){
   const wasReading=reading!==null;
@@ -769,8 +1026,8 @@ function stopReading(){
 function readBook(){
   if(reading){stopReading();return;}
   if(!canRead){$('bookStatus').textContent=voiceUnavailable;return;}
-  const utterance=new SpeechSynthesisUtterance(bookPages[bookPage].text);
-  utterance.lang='en-US';utterance.rate=.82;
+  const utterance=new SpeechSynthesisUtterance(activeBook.pages[bookPage].text);
+  utterance.lang='en-US';utterance.rate=.95;
   reading=utterance;
   $('bookStatus').textContent='';
   $('bookRead').textContent='■ Stop';
@@ -791,23 +1048,38 @@ function readBook(){
 }
 function showBookPage(){
   stopReading();
-  const page=bookPages[bookPage];
+  const pages=activeBook.pages;
+  const page=pages[bookPage];
+  $('storyTitle').textContent=activeBook.title;
   bookText.replaceChildren();
   for(const match of page.text.matchAll(/\S+|\s+/g)){
     if(/^\s/.test(match[0])){bookText.append(match[0]);continue;}
     const word=document.createElement('span');
     word.textContent=match[0];word.dataset.start=match.index;bookText.append(word);
   }
-  $('bookCount').textContent='Page '+(bookPage+1)+' of '+bookPages.length;
+  $('bookCount').textContent='Page '+(bookPage+1)+' of '+pages.length;
   $('bookBack').disabled=bookPage===0;
-  $('bookNext').textContent=bookPage===bookPages.length-1?'Start over':'Next →';
+  $('bookNext').textContent=bookPage===pages.length-1?'Start over':'Next →';
   $('bookStatus').textContent=canRead?'':voiceUnavailable;
   drawBookPage(page);
 }
 bookText.addEventListener('click',readBook);
 $('bookRead').addEventListener('click',readBook);
 $('bookBack').addEventListener('click',()=>{if(bookPage>0){bookPage--;showBookPage();}});
-$('bookNext').addEventListener('click',()=>{bookPage=(bookPage+1)%bookPages.length;showBookPage();});
+$('bookNext').addEventListener('click',()=>{bookPage=(bookPage+1)%activeBook.pages.length;showBookPage();});
+const shelf=$('bookShelf');
+for(const book of books){
+  const button=document.createElement('button');
+  button.type='button';button.className='quiet';button.textContent=book.title;
+  button.setAttribute('aria-pressed',String(book===activeBook));
+  button.addEventListener('click',()=>{
+    if(book===activeBook)return;
+    activeBook=book;bookPage=0;
+    for(const choice of shelf.children)choice.setAttribute('aria-pressed',String(choice===button));
+    showBookPage();
+  });
+  shelf.append(button);
+}
 showBookPage();
 
 const trailLength=5;
@@ -958,6 +1230,425 @@ $('mathNext').addEventListener('click',()=>{
   $('mathQuestion').focus();
 });
 startTrail();
+
+const postHomes=[
+  {name:'Pip',address:'Clover Burrow'},
+  {name:'Maple',address:'Fernbank Den'},
+  {name:'Clover',address:'Sleepy Garden'},
+  {name:'Pebble',address:'Thimble Nook'},
+  {name:'Fern',address:'Sunpatch Orchard'},
+  {name:'Hazel',address:'Treetop Hollow'}
+];
+const postRoutes={
+  address:{label:'Match addresses',prompt:'Find the mailbox with this address.',hint:'Look for the same words on a mailbox.'},
+  letter:{label:'Alphabet Mail',prompt:'Find the slot with the matching lowercase letter.',hint:'Look for the little letter that goes with the big one.'},
+  directions:{label:'Follow directions',prompt:'Read the note on the envelope.',hint:'Read the note again and look at the mailbox pictures.'}
+};
+const letterCount=5;
+const postAlphabet=[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+let alphabetBag=[];
+let postRoute='address', postOrder=[], postStep=0, postDelivered=false;
+const postModes=$('postModes'), postBoxes=$('postBoxes'), postNext=$('postNext');
+
+function startPost(){
+  if(postRoute==='letter'){
+    if(!alphabetBag.length)alphabetBag=trailShuffle([...postAlphabet]);
+    postOrder=alphabetBag.slice(0,letterCount);
+  }else postOrder=trailShuffle([...postHomes]).slice(0,letterCount);
+  postStep=0;
+  showPostLetter();
+}
+function showPostLetter(){
+  postDelivered=false;
+  $('postScene').dataset.sent='false';
+  $('postLetter').classList.remove('done');
+  const target=postOrder[postStep];
+  const route=postRoutes[postRoute];
+  const directions=postRoute==='directions';
+  const letters=postRoute==='letter';
+  const total=postOrder.length;
+  $('postCount').textContent=postStep+' of '+total+' letters delivered';
+  $('postPrompt').textContent=route.prompt;
+  $('postClue').textContent=letters?target:directions?'Give this letter to the '+friends[target.name].species+'.':target.address;
+  $('postStamp').textContent=letters?target:'✿';
+  $('postStamp').classList.toggle('alphabetStamp',letters);
+  postBoxes.setAttribute('aria-label',letters?'Choose a lowercase mail slot':'Choose a mailbox');
+  $('postFeedback').textContent='';
+  postNext.hidden=true;
+  postBoxes.replaceChildren();
+  const others=trailShuffle((letters?postAlphabet:postHomes).filter(choice=>choice!==target));
+  const choices=trailShuffle([target,...others.slice(0,2)]);
+  for(const home of choices){
+    const button=document.createElement('button');
+    button.type='button';button.className=letters?'postBox alphabetSlot':'postBox';
+    if(!letters){
+      const portrait=document.createElement('canvas');
+      portrait.width=140;portrait.height=128;portrait.setAttribute('aria-hidden','true');
+      drawMatchPicture(portrait,{doll:friends[home.name]});
+      button.append(portrait);
+    }
+    const label=document.createElement('span');
+    label.textContent=letters?home.toLowerCase():directions?home.name+' the '+friends[home.name].species:home.address;
+    if(letters)button.setAttribute('aria-label','Lowercase '+label.textContent);
+    button.append(label);
+    button.addEventListener('click',()=>{
+      if(postDelivered)return;
+      if(home!==target){$('postFeedback').textContent='Try again. '+route.hint;return;}
+      postDelivered=true;
+      if(letters)alphabetBag.shift();
+      animatePostDelivery(button);
+      button.dataset.delivered='true';
+      for(const box of postBoxes.children)box.setAttribute('aria-disabled','true');
+      const delivered=postStep+1;
+      $('postCount').textContent=delivered+' of '+total+' letters delivered';
+      $('postFeedback').textContent=letters&&!alphabetBag.length?'You matched all 26 letters!':delivered===total?'All the mail is delivered!':letters?target+' matches '+label.textContent+'!':'Delivered to '+home.name+'!';
+      postNext.textContent=delivered===total?'Deliver more mail':'Next letter →';
+      postNext.hidden=false;
+    });
+    postBoxes.append(button);
+  }
+}
+function animatePostDelivery(mailbox){
+  const letter=$('postLetter');
+  letter.classList.add('done');
+  $('postScene').dataset.sent='true';
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const parcel=document.createElement('span');
+  if(typeof parcel.animate!=='function')return;
+  parcel.className='postParcel';parcel.textContent='✉';parcel.setAttribute('aria-hidden','true');
+  const from=letter.getBoundingClientRect(), to=mailbox.getBoundingClientRect();
+  const startX=from.left+from.width/2-25, startY=from.top+from.height/2-16;
+  const endX=to.left+to.width/2-25, endY=to.top+to.height/2-16;
+  document.body.append(parcel);
+  const flight=parcel.animate([
+    {transform:'translate('+startX+'px,'+startY+'px) rotate(-9deg)',opacity:1},
+    {transform:'translate('+((startX+endX)/2)+'px,'+(Math.min(startY,endY)-24)+'px) rotate(8deg)',opacity:1},
+    {transform:'translate('+endX+'px,'+endY+'px) scale(.35)',opacity:0}
+  ],{duration:650,easing:'ease-in-out'});
+  flight.finished.then(()=>parcel.remove(),()=>parcel.remove());
+}
+for(const [key,route] of Object.entries(postRoutes)){
+  const button=document.createElement('button');
+  button.type='button';button.className='quiet';button.textContent=route.label;
+  button.setAttribute('aria-pressed',String(key===postRoute));
+  button.addEventListener('click',()=>{
+    if(key===postRoute)return;
+    postRoute=key;
+    for(const mode of postModes.children)mode.setAttribute('aria-pressed',String(mode===button));
+    startPost();
+  });
+  postModes.append(button);
+}
+postNext.addEventListener('click',()=>{
+  if(!postDelivered)return;
+  if(++postStep===postOrder.length)startPost();
+  else showPostLetter();
+  $('postClue').focus();
+});
+startPost();
+
+const cottageCatalog={
+  Seating:[
+    ['Armchair','chair','#9cae8a'],['Sofa','sofa','#cc8f83'],
+    ['Window bench','bench','#86a480'],['Rocking chair','rocker','#af795c'],['Footstool','stool','#c296ae']
+  ],
+  'Tables & kitchen':[
+    ['Round table','table','#ba8960'],['Writing desk','desk','#bf9166'],
+    ['Dining table','dining','#aa7953'],['Little stove','stove','#727984'],['Kitchen cupboard','cupboard','#91aa94']
+  ],
+  'Beds & storage':[
+    ['Patchwork bed','bed','#9a8db1'],['Bunk bed','bunk','#80a2ac'],
+    ['Bookcase','shelf','#bf8e66'],['Storage chest','chest','#b87d5a'],['Dresser','dresser','#b98775']
+  ],
+  'Rugs & lights':[
+    ['Braided rug','rug','#90a9b4'],['Round rug','roundrug','#cf8f87'],
+    ['Striped runner','runner','#89a275'],['Floor lamp','lamp','#e5bb69'],['Table lamp','tablelamp','#b98cb0']
+  ],
+  Decorations:[
+    ['Potted fern','plant','#75986c'],['Flower picture','picture','#ce83a2'],
+    ['Wall clock','clock','#b78262'],['Flower vase','vase','#80a8b6'],['Wall mirror','mirror','#b68e64']
+  ]
+};
+const cottageWalls=['#e3e9cf','#f0dfc8','#e9dbd5','#dce9e4','#e9e6c7','#e4dfed'];
+const cottageLayouts=new Map(postHomes.map(({name})=>[name,[]]));
+const cottageRoom=$('cottageRoom'), cottageFriends=$('cottageFriends');
+let cottageFriend=postHomes[0], cottageSelection=null, cottageDrag=null;
+
+function drawCottageArchitecture(name){
+  const canvas=$('cottageArchitecture'), c=canvas.getContext('2d');
+  const rect=(x,y,w,h,fill)=>path(c,[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],fill);
+  const arch=(x,y,w,h,fill)=>path(c,[[x,y+h],[x,y+w/2],[x,y-w/7,x+w,y-w/7,x+w,y+w/2],[x+w,y+h]],fill);
+  const window=(x,y,w,h)=>{rect(x,y,w,h,'#dcebed');line(c,[[x+w/2,y],[x+w/2,y+h]],'#937154',5);line(c,[[x,y+h/2],[x+w,y+h/2]],'#937154',5);};
+  const details={
+    Pip:'A round window and curved burrow walls',
+    Maple:'Stone walls, wood beams, and an arched fireplace',
+    Clover:'A Garden Cottage with glass roof panes and a planting shelf',
+    Pebble:'A nook with a round door and a loft ladder',
+    Fern:'An orchard cottage with a wide picture window and shutters',
+    Hazel:'A treetop home with branch beams and a round night window'
+  };
+  canvas.setAttribute('aria-label',details[name]);
+  c.clearRect(0,0,660,400);
+  if(name==='Pip'){
+    path(c,[[0,0],[660,0],[660,232],[604,232],[594,-42,66,-42,56,232],[0,232]],'#bb936d',null);
+    oval(c,330,104,70,70,'#9e7658',outline);oval(c,330,104,61,61,'#dcebed',outline);
+    line(c,[[330,43],[330,165]],'#9e7658',6);line(c,[[270,104],[390,104]],'#9e7658',6);
+  }else if(name==='Maple'){
+    for(let row=0;row<5;row++){
+      const y=31+row*43;line(c,[[0,y],[660,y]],'#b49a82',2);
+      for(let x=row%2?54:8;x<660;x+=92)line(c,[[x,y-43],[x,y]],'#b49a82',2);
+    }
+    rect(0,0,660,18,'#89664e');rect(38,16,15,216,'#89664e');rect(607,16,15,216,'#89664e');
+    arch(252,82,156,150,'#aa8266');arch(280,119,100,113,'#594b42');
+    path(c,[[307,218],[298,194],[330,171],[326,195],[348,185],[361,218]],'#e9ad5d');
+    rect(239,92,182,12,'#815d48');
+  }else if(name==='Clover'){
+    path(c,[[122,217],[122,88],[330,23],[538,88],[538,217]],'#dcebed');
+    for(const x of [190,260,330,400,470])line(c,[[x,217],[x,44+Math.abs(330-x)*.31]],'#8c9f76',5);
+    line(c,[[122,116],[538,116]],'#8c9f76',6);
+    rect(107,210,446,16,'#a77956');
+    for(const x of [147,196,464,513]){
+      line(c,[[x,190],[x+4,166]],'#67815d',3);oval(c,x+5,170,9,5,'#789662',null,-.5);
+      path(c,[[x-13,183],[x+13,183],[x+9,210],[x-9,210]],'#bc8267');
+    }
+  }else if(name==='Pebble'){
+    oval(c,179,145,68,83,'#a47a5d',outline);oval(c,179,145,55,71,'#c59268',outline);
+    for(const x of [156,177,198])line(c,[[x,88],[x,202]],'#9e7358',2);
+    oval(c,210,148,5,5,'#eac47c',outline);
+    rect(360,71,240,14,'#936d53');
+    for(const x of [382,425,468,511,554,593])line(c,[[x,36],[x,72]],'#936d53',5);
+    line(c,[[372,33],[601,33]],'#936d53',5);
+    for(const x of [413,459])line(c,[[x,81],[x-53,232]],'#936d53',7);
+    for(const y of [105,133,161,189,217]){const x=413-(y-81)*.35;line(c,[[x,y],[x+46,y]],'#936d53',5);}
+  }else if(name==='Fern'){
+    rect(155,49,350,139,'#bd936f');window(165,58,330,119);
+    for(const [x,y] of [[209,141],[445,144]]){
+      line(c,[[x,y+21],[x,y-8]],'#997052',6);
+      oval(c,x,y-12,26,19,'#8ca87c');
+      for(const dx of [-11,8])oval(c,x+dx,y-13,5,5,'#9c7294');
+    }
+    for(const x of [107,505]){rect(x,49,48,139,'#8ca47a');for(let y=64;y<185;y+=19)line(c,[[x+3,y],[x+45,y]],'#6f8861',3);}
+    rect(145,183,370,10,'#a57b58');
+  }else{
+    line(c,[[8,232],[121,106],[256,23]],'#967662',21);
+    line(c,[[652,232],[539,106],[404,23]],'#967662',21);
+    oval(c,330,105,74,74,'#a78672',outline);oval(c,330,105,64,64,'#526681',outline);
+    oval(c,308,90,18,18,'#f5daa0');oval(c,315,83,15,15,'#526681');
+    for(const [x,y] of [[356,79],[345,120],[369,109],[316,138]])star(c,x,y,5,'#fff4c6');
+  }
+}
+
+function drawCottagePiece(canvas,item){
+  const c=canvas.getContext('2d');
+  const [,kind,color]=item;
+  const rect=(x,y,w,h,fill)=>path(c,[[x,y],[x+w,y],[x+w,y+h],[x,y+h]],fill);
+  if(kind==='chair'||kind==='sofa'){
+    const left=kind==='chair'?29:9, width=120-2*left;
+    rect(left+5,64,7,12,'#88664e');rect(left+width-12,64,7,12,'#88664e');
+    path(c,[[left,52],[left,19],[left+18,8,left+width-18,8,left+width,19],[left+width,52]],color);
+    rect(left-5,43,width+10,23,color);
+    line(c,[[left+4,53],[left+width-4,53]],'#fff0dc',3);
+    if(kind==='sofa')line(c,[[60,24],[60,49]],outline);
+  }else if(kind==='dining'||kind==='stool'){
+    const x=kind==='dining'?12:27, w=120-x*2, y=kind==='dining'?30:44;
+    rect(x+6,y+12,9,77-y-12,'#987052');rect(x+w-15,y+12,9,77-y-12,'#987052');
+    path(c,[[x,y+4],[x+7,y-4],[x+w-7,y-4],[x+w,y+4],[x+w,y+15],[x,y+15]],color);
+  }else if(kind==='rocker'){
+    path(c,[[30,51],[23,15],[39,12],[48,44],[89,44],[89,55],[49,55]],color);
+    line(c,[[47,55],[42,73],[31,73]],outline,4);line(c,[[83,55],[89,73]],outline,4);
+    line(c,[[24,72],[43,87,86,86,103,71]],color,7);
+    line(c,[[40,33],[73,33],[81,44]],outline,4);
+  }else if(kind==='table'){
+    rect(24,39,9,35,'#997052');rect(87,39,9,35,'#997052');
+    oval(c,60,38,45,16,color,outline);
+  }else if(kind==='rug'){
+    oval(c,60,47,55,31,color,outline);
+    oval(c,60,47,43,23,'#f2d4a6',outline);
+    oval(c,60,47,32,15,color,outline);
+  }else if(kind==='roundrug'||kind==='runner'){
+    if(kind==='roundrug'){
+      oval(c,60,45,39,36,color,outline);
+      for(let i=0;i<8;i++){const a=i*Math.PI/4;oval(c,60+Math.cos(a)*26,45+Math.sin(a)*25,5,5,'#f5dfb5');}
+      flower(c,60,45,13,'#fff0c6');
+    }else{
+      rect(9,28,102,37,color);
+      for(const x of [18,29,45,56,72,83,99])line(c,[[x,32],[x,61]],'#f5dfb5',4);
+      for(const y of [34,45,56]){line(c,[[4,y],[9,y]],outline);line(c,[[111,y],[116,y]],outline);}
+    }
+  }else if(kind==='lamp'||kind==='tablelamp'){
+    if(kind==='tablelamp'){c.translate(18,27);c.scale(.7,.7);}
+    line(c,[[60,33],[60,74]],'#8d674c',5);
+    oval(c,60,75,22,5,'#9f7958',outline);
+    path(c,[[43,11],[77,11],[91,43],[29,43]],color);
+    line(c,[[37,37],[83,37]],'#fff1ba',3);
+  }else if(kind==='plant'){
+    for(const [x,y,angle] of [[40,34,.7],[58,22,-.15],[80,28,-.75]])oval(c,x,y,11,24,color,outline,angle);
+    path(c,[[39,47],[81,47],[75,76],[45,76]],'#c6886a');
+  }else if(kind==='picture'){
+    rect(28,11,64,66,'#956f51');rect(34,17,52,54,'#f9edce');
+    line(c,[[60,39],[60,62]],'#789765',4);flower(c,60,38,16,color);
+  }else if(kind==='bunk'){
+    for(const y of [16,52]){
+      rect(20,y,80,20,'#fff0d6');rect(50,y+2,50,17,color);oval(c,35,y+8,12,5,'#fff8e8',outline);
+    }
+    for(const x of [14,99])rect(x,7,7,74,'#916c52');
+    for(const x of [73,88])line(c,[[x,22],[x,78]],'#916c52',4);
+    for(const y of [34,48,62])line(c,[[73,y],[88,y]],'#916c52',4);
+  }else if(kind==='dresser'||kind==='cupboard'){
+    rect(19,13,82,66,color);
+    if(kind==='dresser'){
+      for(const y of [19,38,57]){rect(24,y,72,16,'#d8a98b');oval(c,60,y+8,4,2,outline);}
+    }else{
+      for(const x of [25,61]){rect(x,19,34,53,'#dbe3c9');oval(c,x+(x===25?28:6),46,3,3,outline);}
+    }
+  }else if(kind==='bed'){
+    rect(12,17,11,64,'#916c52');rect(96,48,10,33,'#916c52');
+    rect(18,37,83,34,'#fff0d6');oval(c,34,43,14,8,'#fff8e8',outline);
+    rect(48,40,52,28,color);
+    for(const [x,y] of [[55,45],[74,55],[88,45]])rect(x,y,9,7,'#e6bd9a');
+  }else if(kind==='desk'||kind==='bench'){
+    rect(19,41,9,36,'#987051');rect(91,41,9,36,'#987051');
+    rect(12,34,96,13,color);
+    if(kind==='desk'){rect(63,47,30,22,color);line(c,[[73,55],[82,55]],outline);}
+    else{rect(20,17,80,16,color);line(c,[[32,18],[32,34]],outline);line(c,[[88,18],[88,34]],outline);}
+  }else if(kind==='chest'){
+    rect(14,38,92,37,color);
+    path(c,[[14,38],[20,12,100,12,106,38]],'#d29e72');
+    rect(53,34,14,13,'#e8c385');oval(c,60,42,2,3,outline);
+  }else if(kind==='stove'){
+    rect(80,7,12,35,'#636873');rect(25,34,70,40,color);rect(32,74,8,7,'#565d65');rect(80,74,8,7,'#565d65');
+    rect(43,44,33,22,'#424955');oval(c,59,55,9,7,'#eeb467');
+    oval(c,49,33,13,4,'#9ba0a3',outline);
+  }else if(kind==='clock'){
+    oval(c,60,43,32,32,color,outline);oval(c,60,43,25,25,'#fff2d6',outline);
+    line(c,[[60,27],[60,43],[73,47]],outline,3);oval(c,60,43,3,3,outline);
+  }else if(kind==='vase'){
+    for(const [x,y,hue] of [[45,25,'#d7859a'],[60,15,'#e0b358'],[75,26,'#a793bd']]){
+      line(c,[[60,53],[x,y]],'#679065',3);flower(c,x,y,10,hue);
+    }
+    path(c,[[48,44],[72,44],[72,55],[88,76,32,76,48,55]],color);
+  }else if(kind==='mirror'){
+    oval(c,60,44,29,36,color,outline);oval(c,60,44,23,29,'#d8e8e5',outline);
+    line(c,[[47,43],[62,25]],'#fff8e8',3);line(c,[[48,53],[67,31]],'#fff8e8',3);
+  }else{
+    rect(24,10,72,68,color);
+    for(const y of [18,48]){
+      rect(30,y,60,23,'#f3e1bc');
+      for(const [x,shade] of [[34,'#aa6d68'],[45,'#789765'],[59,'#8992b1'],[73,'#c99059']])rect(x,y+4,9,18,shade);
+    }
+  }
+}
+function cottageCanvas(item){
+  const canvas=document.createElement('canvas');
+  canvas.width=120;canvas.height=90;canvas.setAttribute('aria-hidden','true');
+  drawCottagePiece(canvas,item);
+  return canvas;
+}
+function selectCottagePiece(piece){
+  cottageSelection=piece;
+  for(const entry of cottageLayouts.get(cottageFriend.name))entry.button.setAttribute('aria-pressed',String(entry===piece));
+  for(const control of $('cottageTools').children)control.disabled=piece===null;
+}
+function positionCottagePiece(piece,x,y){
+  const width=cottageRoom.clientWidth, height=cottageRoom.clientHeight;
+  const edgeX=width?(piece.button.offsetWidth/2+2)/width*100:13;
+  const edgeY=height?(piece.button.offsetHeight/2+2)/height*100:19;
+  piece.x=Math.min(100-edgeX,Math.max(edgeX,x));piece.y=Math.min(100-edgeY,Math.max(edgeY,y));
+  piece.button.style.left=piece.x+'%';piece.button.style.top=piece.y+'%';
+}
+function showCottage(){
+  cottageDrag=null;
+  for(const button of cottageFriends.children)button.setAttribute('aria-pressed',String(button.textContent===cottageFriend.name));
+  $('cottageHome').textContent=cottageFriend.name+'’s home · '+({'Clover':'Garden Cottage','Fern':'Sunpatch Orchard Cottage'}[cottageFriend.name]??cottageFriend.address);
+  cottageRoom.style.setProperty('--wall',cottageWalls[postHomes.indexOf(cottageFriend)]);
+  drawCottageArchitecture(cottageFriend.name);
+  for(const piece of cottageRoom.querySelectorAll('.roomPiece'))piece.remove();
+  for(const piece of cottageLayouts.get(cottageFriend.name))cottageRoom.append(piece.button);
+  selectCottagePiece(null);
+  $('cottageStatus').textContent='';
+}
+window.addEventListener('resize',()=>{
+  if(!cottageRoom.clientWidth)return;
+  for(const piece of cottageLayouts.get(cottageFriend.name))positionCottagePiece(piece,piece.x,piece.y);
+});
+function addCottagePiece(item){
+  const layout=cottageLayouts.get(cottageFriend.name);
+  if(layout.length>=16){$('cottageStatus').textContent='This room is full. Remove a piece to add another.';return;}
+  const [label,kind]=item;
+  const button=document.createElement('button');
+  button.type='button';button.className='roomPiece';button.dataset.kind=kind;
+  button.setAttribute('aria-label',label);
+  button.append(cottageCanvas(item));
+  const piece={button,label};
+  layout.push(piece);cottageRoom.append(button);
+  const height=['picture','clock','mirror'].includes(kind)?36:['rug','roundrug','runner'].includes(kind)?76:64;
+  positionCottagePiece(piece,34+(layout.length-1)%5*8,height);
+  selectCottagePiece(piece);
+  $('cottageStatus').textContent=label+' added.';
+  button.addEventListener('click',()=>selectCottagePiece(piece));
+  button.addEventListener('pointerdown',event=>{
+    if(event.button!==0)return;
+    selectCottagePiece(piece);
+    cottageDrag={piece,id:event.pointerId,x:event.clientX,y:event.clientY,left:piece.x,top:piece.y};
+    button.setPointerCapture(event.pointerId);
+  });
+  button.addEventListener('pointermove',event=>{
+    const drag=cottageDrag;
+    if(drag?.piece!==piece||drag.id!==event.pointerId)return;
+    const bounds=cottageRoom.getBoundingClientRect();
+    positionCottagePiece(piece,drag.left+(event.clientX-drag.x)/bounds.width*100,drag.top+(event.clientY-drag.y)/bounds.height*100);
+  });
+  button.addEventListener('lostpointercapture',()=>{if(cottageDrag?.piece===piece)cottageDrag=null;});
+  button.addEventListener('keydown',event=>{
+    const direction={ArrowLeft:[-1,0],ArrowUp:[0,-1],ArrowDown:[0,1],ArrowRight:[1,0]}[event.key];
+    if(!direction)return;
+    event.preventDefault();selectCottagePiece(piece);
+    moveCottagePiece(...direction);
+  });
+}
+function moveCottagePiece(dx,dy){
+  if(!cottageSelection)return;
+  positionCottagePiece(cottageSelection,cottageSelection.x+dx*4,cottageSelection.y+dy*4);
+}
+for(const button of $('cottageTools').children){
+  if(button.dataset.move)button.addEventListener('click',()=>moveCottagePiece(...button.dataset.move.split(',').map(Number)));
+}
+$('cottageRemove').addEventListener('click',()=>{
+  if(!cottageSelection)return;
+  const layout=cottageLayouts.get(cottageFriend.name);
+  const piece=cottageSelection;
+  layout.splice(layout.indexOf(piece),1);piece.button.remove();
+  selectCottagePiece(null);
+  $('cottageStatus').textContent=piece.label+' removed.';
+  $('cottageItems').firstElementChild.focus();
+});
+for(const home of postHomes){
+  const button=document.createElement('button');
+  button.type='button';button.className='quiet';button.textContent=home.name;
+  button.addEventListener('click',()=>{if(home!==cottageFriend){cottageFriend=home;showCottage();}});
+  cottageFriends.append(button);
+}
+const categoryPicker=$('cottageCategories');
+const itemPicker=$('cottageItems');
+function showCottageCategory(name){
+  for(const button of categoryPicker.children)button.setAttribute('aria-pressed',String(button.textContent===name));
+  itemPicker.replaceChildren();
+  itemPicker.setAttribute('aria-label','Add a piece from '+name);
+  for(const item of cottageCatalog[name]){
+    const button=document.createElement('button');
+    button.type='button';button.className='quiet';button.append(cottageCanvas(item),item[0]);
+    button.addEventListener('click',()=>addCottagePiece(item));
+    itemPicker.append(button);
+  }
+}
+for(const name of Object.keys(cottageCatalog)){
+  const button=document.createElement('button');
+  button.type='button';button.className='quiet';button.textContent=name;
+  button.addEventListener('click',()=>showCottageCategory(name));
+  categoryPicker.append(button);
+}
+showCottageCategory(Object.keys(cottageCatalog)[0]);
+showCottage();
 </script>
 </body>
 </html>
